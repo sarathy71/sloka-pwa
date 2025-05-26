@@ -1,76 +1,88 @@
 body {
+  background-color: #000;
+  color: white;
+  font-family: "Helvetica Neue", sans-serif;
   margin: 0;
-  font-family: 'Arial Rounded MT Bold', sans-serif;
-  background-color: #121212;
-  color: white;
-  text-align: center;
-}
-
-.app-container {
-  padding: 20px;
-}
-
-.sloka-text {
+  padding: 0;
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
-  margin: 20px 0;
 }
 
-.sloka-text span {
-  margin: 8px;
-  padding: 12px 16px;
-  border-radius: 16px;
-  background-color: transparent;
-  font-size: 1.2em;
-  cursor: pointer;
-  transition: all 0.3s ease;
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 16px;
+  max-width: 800px;
+  width: 100%;
 }
 
-.sloka-text span.active {
-  background-color: white;
-  color: #00bcd4;
-  transform: scale(1.2);
+.sloka-box {
+  padding: 24px;
+  margin-bottom: 32px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(0, 255, 255, 0.3);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+  width: 100%;
 }
 
-.controls button {
-  font-size: 1.2em;
-  margin: 10px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 10px;
-  color: white;
-  background-color: #4caf50;
-  cursor: pointer;
+#sloka-text {
+  text-align: center;
+  font-size: 24px;
+  line-height: 2;
 }
 
-.controls button:hover {
-  opacity: 0.9;
+#sloka-text span {
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: 12px;
+  margin: 4px;
+  transition: all 0.2s ease-in-out;
 }
 
-#pause-btn {
-  background-color: #f57c00;
-}
-
-#stop-btn {
-  background-color: #e53935;
+#sloka-text span.active {
+  background-color: #00ffff;
+  color: #000;
+  font-weight: bold;
 }
 
 .coin-track {
-  margin-top: 20px;
   display: flex;
-  justify-content: center;
-  gap: 15px;
+  gap: 12px;
+  margin: 16px 0;
 }
 
 .coin-track img {
   width: 36px;
   height: 36px;
-  opacity: 0.3;
-  transition: all 0.5s ease;
 }
 
-.coin-track img.collected {
-  opacity: 1;
-  transform: rotateY(360deg);
+.coin-track .collected {
+  animation: spin 0.7s ease-in-out;
+}
+
+@keyframes spin {
+  0% { transform: rotateY(0); }
+  100% { transform: rotateY(360deg); }
+}
+
+.controls {
+  display: flex;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.controls button {
+  font-size: 32px;
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  opacity: 0.85;
+}
+
+.controls button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
 }
