@@ -14,7 +14,6 @@ const resumeBtn = document.getElementById("resume-btn");
 const stopBtn = document.getElementById("stop-btn");
 const resetBtn = document.getElementById("reset-btn");
 
-// Initial button state
 updateButtonStates("initial");
 
 async function loadSloka() {
@@ -43,9 +42,9 @@ function jumpTo(index) {
   clearInterval(timer);
   currentWord = index;
   audio.currentTime = sloka[index].start;
+  isPaused = false;
   audio.play();
   highlightWord(index);
-  isPaused = false;
   updateButtonStates("playing");
   monitorAudio();
 }
@@ -110,36 +109,11 @@ function updateCoins() {
 }
 
 function updateButtonStates(state) {
-  switch (state) {
-    case "initial":
-      playBtn.disabled = false;
-      pauseBtn.disabled = true;
-      resumeBtn.disabled = true;
-      stopBtn.disabled = true;
-      resetBtn.disabled = true;
-      break;
-    case "playing":
-      playBtn.disabled = true;
-      pauseBtn.disabled = false;
-      resumeBtn.disabled = true;
-      stopBtn.disabled = false;
-      resetBtn.disabled = false;
-      break;
-    case "paused":
-      playBtn.disabled = true;
-      pauseBtn.disabled = true;
-      resumeBtn.disabled = false;
-      stopBtn.disabled = false;
-      resetBtn.disabled = false;
-      break;
-    case "stopped":
-      playBtn.disabled = true;
-      pauseBtn.disabled = true;
-      resumeBtn.disabled = true;
-      stopBtn.disabled = true;
-      resetBtn.disabled = false;
-      break;
-  }
+  playBtn.disabled   = !(state === "initial");
+  pauseBtn.disabled  = !(state === "playing");
+  resumeBtn.disabled = !(state === "paused");
+  stopBtn.disabled   = !(state === "playing" || state === "paused");
+  resetBtn.disabled  = !(state !== "initial");
 }
 
 // === BUTTON EVENTS ===
