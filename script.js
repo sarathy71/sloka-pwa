@@ -54,44 +54,45 @@ document.addEventListener("DOMContentLoaded", () => {
     monitorAudio();
   }
 
-  function monitorAudio() {
-    clearInterval(timer);
-    timer = setInterval(() => {
-      if (isPaused || audio.paused || isWaitingForStudent) return;
+function simulateStudentRepeat(duration, callback) {
+  isWaitingForStudent = true;
+  highlightWord(currentWord); // keep it highlighted during student turn
+  setTimeout(() => {
+    isWaitingForStudent = false;
+    callback();
+  }, duration * 1000); // duration in ms
+}
 
-      const t = audio.currentTime;
-      if (currentWord < sloka.length) {
-        const word = sloka[currentWord];
-        if (t >= word.end) {
-          audio.pause();
-          clearInterval(timer);
-          highlightWord(currentWord); // keep highlighter on last teacher word
-          simulateStudentRepeat(() => {
-            if (isPaused) return;
-            currentWord++;
-            if (currentWord < sloka.length) {
-              audio.currentTime = sloka[currentWord].start;
-              audio.play();
-              highlightWord(currentWord);
-              monitorAudio();
-            } else {
-              finishCycle();
-            }
-          }, word.end - word.start);
-        } else {
-          highlightWord(currentWord);
-        }
+function monitorAudio() {
+  clearInterval(timer);
+  timer = setInterval(() => {
+    if (isPaused || audio.paused || isWaitingForStudent) return;
+
+    const t = audio.currentTime;
+    if (currentWord < sloka.length) {
+      const word = sloka[currentWord];
+      if (t >= word.end) {
+        audio.pause();
+        clearInterval(timer);
+        simulateStudentRepeat(word.end - word.start, () => {
+          if (isPaused) return;
+          currentWord++;
+          if (currentWord < sloka.length) {
+            audio.currentTime = sloka[currentWord].start;
+            audio.play();
+            highlightWord(currentWord);
+            monitorAudio();
+          } else {
+            finishCycle();
+          }
+        });
+      } else {
+        highlightWord(currentWord);
       }
-    }, 100);
-  }
+    }
+  }, 100);
+}
 
-  function simulateStudentRepeat(callback, duration) {
-    isWaitingForStudent = true;
-    setTimeout(() => {
-      isWaitingForStudent = false;
-      callback();
-    }, duration * 1000);
-  }
 
   function finishCycle() {
     repetitions++;
