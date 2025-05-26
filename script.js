@@ -93,19 +93,39 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 100);
   }
 
-  function finishCycle() {
-    repetitions++;
-    if (repetitions < maxReps) {
-      currentWord = 0;
-      audio.currentTime = sloka[0].start;
-      highlightWord(0);
-      audio.play();
-      monitorAudio();
-    } else {
-      console.log("✅ All repetitions done");
-      setControls("initial");
+function finishCycle() {
+  repetitions++;
+  updateRepetitionTrack(); // ✅ new call
+  if (repetitions < maxReps) {
+    currentWord = 0;
+    audio.currentTime = sloka[0].start;
+    highlightWord(0);
+    audio.play();
+    monitorAudio();
+  } else {
+    console.log("✅ All repetitions done");
+    setControls("initial");
+  }
+}
+
+function updateRepetitionTrack() {
+  const track = document.getElementById("repetition-track");
+  track.innerHTML = ""; // Clear previous
+
+  for (let i = 0; i < maxReps; i++) {
+    const circle = document.createElement("div");
+    circle.classList.add("repetition-circle");
+    if (i < repetitions) circle.classList.add("completed");
+    circle.textContent = i + 1;
+    track.appendChild(circle);
+
+    if (i < maxReps - 1) {
+      const line = document.createElement("div");
+      line.classList.add("repetition-line");
+      track.appendChild(line);
     }
   }
+}
 
   playBtn.addEventListener("click", () => {
     isPaused = false;
