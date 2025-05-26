@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let audio = document.getElementById("sloka-audio");
   let currentWord = 0;
   let repetitions = 0;
-  let maxReps = 5;
+  const maxReps = 5;
   let timer;
   let wordsDOM = [];
   let isPaused = false;
@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const stopBtn = document.getElementById("stop-btn");
 
   function setControls(state) {
+    // state: 'initial', 'playing', 'paused'
     playBtn.disabled = state !== "initial";
     pauseBtn.disabled = state !== "playing";
     resumeBtn.disabled = state !== "paused";
@@ -38,9 +39,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function highlightWord(index) {
-    wordsDOM.forEach((w, i) =>
-      w.classList.toggle("active", i === index)
-    );
+    wordsDOM.forEach((w, i) => {
+      w.classList.toggle("active", i === index);
+    });
   }
 
   function jumpTo(index) {
@@ -54,74 +55,55 @@ document.addEventListener("DOMContentLoaded", () => {
     monitorAudio();
   }
 
-function simulateStudentRepeat(duration, callback) {
-  isWaitingForStudent = true;
-  highlightWord(currentWord); // keep it highlighted during student turn
-  setTimeout(() => {
-    isWaitingForStudent = false;
-    callback();
-  }, duration * 1000); // duration in ms
-}
+  function simulateStudentRepeat(duration, callback) {
+    isWaitingForStudent = true;
+    setTimeout(() => {
+      isWaitingForStudent = false;
+      callback();
+    }, duration * 1000);
+  }
 
-function monitorAudio() {
-  clearInterval(timer);
-  timer = setInterval(() => {
-    if (isPaused || audio.paused || isWaitingForStudent) return;
+  function monitorAudio() {
+    clearInterval(timer);
+    timer = setInterval(() => {
+      if (isPaused || audio.paused || isWaitingForStudent) return;
 
-    const t = audio.currentTime;
-    if (currentWord < sloka.length) {
-      const word = sloka[currentWord];
-      if (t >= word.end) {
-        audio.pause();
-        clearInterval(timer);
-        simulateStudentRepeat(word.end - word.start, () => {
-          if (isPaused) return;
-          currentWord++;
-          if (currentWord < sloka.length) {
-            audio.currentTime = sloka[currentWord].start;
-            audio.play();
-            highlightWord(currentWord);
-            monitorAudio();
-          } else {
-            finishCycle();
-          }
-        });
-      } else {
-        highlightWord(currentWord);
+      const t = audio.currentTime;
+      if (currentWord < sloka.length) {
+        const word = sloka[currentWord];
+        if (t >= word.end) {
+          audio.pause();
+          clearInterval(timer);
+          simulateStudentRepeat(word.end - word.start, () => {
+            if (isPaused) return;
+            currentWord++;
+            if (currentWord < sloka.length) {
+              audio.currentTime = sloka[currentWord].start;
+              audio.play();
+              highlightWord(currentWord);
+              monitorAudio();
+            } else {
+              finishCycle();
+            }
+          });
+        } else {
+          highlightWord(currentWord);
+        }
       }
-    }
-  }, 100);
-}
-
+    }, 100);
+  }
 
   function finishCycle() {
-  repetitions++;
-  updateWaterPot(); // <-- here
-  if (repetitions < maxReps) {
-    currentWord = 0;
-    audio.currentTime = sloka[0].start;
-    highlightWord(0);
-    audio.play();
-    monitorAudio();
-  } else {
-    console.log("✨ All repetitions done!");
-    setControls("initial");
-  }
-}
-function updateWaterPot() {
-  const fill = document.getElementById("water-fill");
-  const percent = Math.min((repetitions / maxReps) * 100, 100);
-  fill.style.height = `${percent}%`;
-}
-
-  function updateCoins() {
-    const track = document.getElementById("progress-coins");
-    track.innerHTML = "";
-    for (let i = 0; i < maxReps; i++) {
-      const img = document.createElement("img");
-      img.src = "goldCoin.png";
-      if (i < repetitions) img.classList.add("collected");
-      track.appendChild(img);
+    repetitions++;
+    if (repetitions < maxReps) {
+      currentWord = 0;
+      audio.currentTime = sloka[0].start;
+      highlightWord(0);
+      audio.play();
+      monitorAudio();
+    } else {
+      console.log("✅ All repetitions done");
+      setControls("initial");
     }
   }
 
@@ -133,7 +115,6 @@ function updateWaterPot() {
       audio.currentTime = sloka[0].start;
       audio.play();
       highlightWord(0);
-      updateCoins();
       monitorAudio();
       setControls("playing");
     });
@@ -157,15 +138,15 @@ function updateWaterPot() {
 
   stopBtn.addEventListener("click", () => {
     isPaused = false;
+    clearInterval(timer);
     audio.pause();
     audio.currentTime = 0;
-    clearInterval(timer);
     currentWord = 0;
     repetitions = 0;
     highlightWord(-1);
-    updateCoins();
     setControls("initial");
   });
 
+  // Initialize controls
   setControls("initial");
 });
