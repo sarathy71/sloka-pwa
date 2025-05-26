@@ -88,3 +88,31 @@ body {
   opacity: 0.3;
   cursor: not-allowed;
 }
+
+.pot-container {
+  position: relative;
+  width: 100px;
+  height: 150px;
+  margin: 0 auto;
+}
+
+.pot-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  position: relative;
+  z-index: 2;
+}
+
+.water-fill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(0, 191, 255, 0.6);
+  z-index: 1;
+  transition: height 0.8s ease;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
