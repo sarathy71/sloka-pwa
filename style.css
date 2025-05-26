@@ -1,28 +1,76 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="manifest" href="manifest.json"/>
-  <title>Sloka Reader</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
+body {
+  margin: 0;
+  font-family: 'Arial Rounded MT Bold', sans-serif;
+  background-color: #121212;
+  color: white;
+  text-align: center;
+}
 
-  <div class="app-container">
-    <h1>🕉️ Sloka Reader</h1>
-    <div id="sloka-text" class="sloka-text"></div>
-    <div id="progress-coins" class="coin-track"></div>
+.app-container {
+  padding: 20px;
+}
 
-    <div class="controls">
-      <button id="play-btn">▶️ Play</button>
-      <button id="pause-btn">⏸ Pause</button>
-      <button id="stop-btn">⏹ Stop</button>
-    </div>
+.sloka-text {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 20px 0;
+}
 
-    <audio id="sloka-audio" src="sloka2.wav"></audio>
-  </div>
+.sloka-text span {
+  margin: 8px;
+  padding: 12px 16px;
+  border-radius: 16px;
+  background-color: transparent;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
 
-  <script src="script.js"></script>
-</body>
-</html>
+.sloka-text span.active {
+  background-color: white;
+  color: #00bcd4;
+  transform: scale(1.2);
+}
+
+.controls button {
+  font-size: 1.2em;
+  margin: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  background-color: #4caf50;
+  cursor: pointer;
+}
+
+.controls button:hover {
+  opacity: 0.9;
+}
+
+#pause-btn {
+  background-color: #f57c00;
+}
+
+#stop-btn {
+  background-color: #e53935;
+}
+
+.coin-track {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.coin-track img {
+  width: 36px;
+  height: 36px;
+  opacity: 0.3;
+  transition: all 0.5s ease;
+}
+
+.coin-track img.collected {
+  opacity: 1;
+  transform: rotateY(360deg);
+}
