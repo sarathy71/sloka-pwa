@@ -9,14 +9,21 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>Welcome to Sloka PWA</h1>
-  <p>This is a test Progressive Web App for learning slokas.</p>
 
-  <script src="app.js"></script>
-  <script>
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("service-worker.js");
-    }
-  </script>
+  <div class="app-container">
+    <h1>🕉️ Sloka Reader</h1>
+    <div id="sloka-text" class="sloka-text"></div>
+    <div id="progress-coins" class="coin-track"></div>
+
+    <div class="controls">
+      <button id="play-btn">▶️ Play</button>
+      <button id="pause-btn">⏸ Pause</button>
+      <button id="stop-btn">⏹ Stop</button>
+    </div>
+
+    <audio id="sloka-audio" src="sloka2.wav"></audio>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
