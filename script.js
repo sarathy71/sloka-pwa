@@ -95,19 +95,24 @@ function monitorAudio() {
 
 
   function finishCycle() {
-    repetitions++;
-    updateCoins();
-    if (repetitions < maxReps) {
-      currentWord = 0;
-      audio.currentTime = sloka[0].start;
-      highlightWord(0);
-      audio.play();
-      monitorAudio();
-    } else {
-      console.log("✨ Done with all reps");
-      setControls("initial");
-    }
+  repetitions++;
+  updateWaterPot(); // <-- here
+  if (repetitions < maxReps) {
+    currentWord = 0;
+    audio.currentTime = sloka[0].start;
+    highlightWord(0);
+    audio.play();
+    monitorAudio();
+  } else {
+    console.log("✨ All repetitions done!");
+    setControls("initial");
   }
+}
+function updateWaterPot() {
+  const fill = document.getElementById("water-fill");
+  const percent = Math.min((repetitions / maxReps) * 100, 100);
+  fill.style.height = `${percent}%`;
+}
 
   function updateCoins() {
     const track = document.getElementById("progress-coins");
