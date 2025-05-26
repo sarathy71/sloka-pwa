@@ -2,30 +2,27 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <base href="/sloka-pwa/">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sloka App</title>
-  <link rel="manifest" href="manifest.json" />
+  <title>Sloka Reader</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <main class="container">
+    <div class="sloka-box">
+      <div id="sloka-text"></div>
+    </div>
 
-  <div class="app-container">
-    <h1>🕉️ Sloka Reader</h1>
-    <div id="sloka-text" class="sloka-text"></div>
     <div id="progress-coins" class="coin-track"></div>
 
-   <div class="controls">
-  <button id="play-btn">▶️ Play</button>
-  <button id="pause-btn">⏸ Pause</button>
-  <button id="resume-btn">▶️ Resume</button>
-  <button id="stop-btn">⏹ Stop</button>
-  <button id="reset-btn">🔁 Reset</button>
-</div>
-
+    <div class="controls">
+      <button id="play-btn" title="Play">▶️</button>
+      <button id="resume-btn" title="Resume">⏵</button>
+      <button id="pause-btn" title="Pause">⏸️</button>
+      <button id="stop-btn" title="Stop">⏹️</button>
+    </div>
 
     <audio id="sloka-audio" src="sloka2.wav"></audio>
-  </div>
+  </main>
 
   <script src="script.js"></script>
 </body>
