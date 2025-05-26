@@ -24,7 +24,7 @@ body {
   background: rgba(255, 255, 255, 0.05);
   border: 2px solid rgba(0, 255, 255, 0.3);
   box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
-  width: 90%;
+  width: 80%;
   max-width: 600px; /* ⬅️ new: controls the actual visible width */
 }
 
