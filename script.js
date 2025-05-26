@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let timer;
   let wordsDOM = [];
   let isPaused = false;
+  let isWaitingForStudent = false;
 
   const playBtn = document.getElementById("play-btn");
   const pauseBtn = document.getElementById("pause-btn");
@@ -54,8 +55,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function monitorAudio() {
+    clearInterval(timer);
     timer = setInterval(() => {
-      if (isPaused || audio.paused) return;
+      if (isPaused || audio.paused || isWaitingForStudent) return;
 
       const t = audio.currentTime;
       if (currentWord < sloka.length) {
@@ -63,7 +65,8 @@ document.addEventListener("DOMContentLoaded", () => {
         if (t >= word.end) {
           audio.pause();
           clearInterval(timer);
-          simulateMicPause(() => {
+          highlightWord(currentWord); // keep highlighter on last teacher word
+          simulateStudentRepeat(() => {
             if (isPaused) return;
             currentWord++;
             if (currentWord < sloka.length) {
@@ -74,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
             } else {
               finishCycle();
             }
-          });
+          }, word.end - word.start);
         } else {
           highlightWord(currentWord);
         }
@@ -82,8 +85,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 100);
   }
 
-  function simulateMicPause(callback) {
-    setTimeout(callback, 2000);
+  function simulateStudentRepeat(callback, duration) {
+    isWaitingForStudent = true;
+    setTimeout(() => {
+      isWaitingForStudent = false;
+      callback();
+    }, duration * 1000);
   }
 
   function finishCycle() {
@@ -135,7 +142,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   resumeBtn.addEventListener("click", () => {
     isPaused = false;
-    audio.play();
+    if (!isWaitingForStudent) {
+      audio.play();
+    }
     monitorAudio();
     setControls("playing");
   });
@@ -152,6 +161,5 @@ document.addEventListener("DOMContentLoaded", () => {
     setControls("initial");
   });
 
-  // Set initial control states
   setControls("initial");
 });
