@@ -7,14 +7,17 @@ let timer;
 let wordsDOM = [];
 let isPaused = false;
 
-// Button references
 const playBtn = document.getElementById("play-btn");
 const pauseBtn = document.getElementById("pause-btn");
 const resumeBtn = document.getElementById("resume-btn");
 const stopBtn = document.getElementById("stop-btn");
-const resetBtn = document.getElementById("reset-btn");
 
-updateButtonStates("initial");
+function setControls(state) {
+  playBtn.disabled = state !== "initial";
+  pauseBtn.disabled = state !== "playing";
+  resumeBtn.disabled = state !== "paused";
+  stopBtn.disabled = state === "initial";
+}
 
 async function loadSloka() {
   const res = await fetch("sloka.json");
@@ -42,10 +45,10 @@ function jumpTo(index) {
   clearInterval(timer);
   currentWord = index;
   audio.currentTime = sloka[index].start;
-  isPaused = false;
   audio.play();
+  isPaused = false;
+  setControls("playing");
   highlightWord(index);
-  updateButtonStates("playing");
   monitorAudio();
 }
 
@@ -79,7 +82,7 @@ function monitorAudio() {
 }
 
 function simulateMicPause(callback) {
-  setTimeout(callback, 2000); // Simulated student repeat time
+  setTimeout(callback, 2000);
 }
 
 function finishCycle() {
@@ -88,12 +91,12 @@ function finishCycle() {
   if (repetitions < maxReps) {
     currentWord = 0;
     audio.currentTime = sloka[0].start;
-    audio.play();
     highlightWord(0);
+    audio.play();
     monitorAudio();
   } else {
-    console.log("✨ All repetitions done!");
-    updateButtonStates("stopped");
+    console.log("✨ Done with all reps");
+    setControls("initial");
   }
 }
 
@@ -108,16 +111,6 @@ function updateCoins() {
   }
 }
 
-function updateButtonStates(state) {
-  playBtn.disabled   = !(state === "initial");
-  pauseBtn.disabled  = !(state === "playing");
-  resumeBtn.disabled = !(state === "paused");
-  stopBtn.disabled   = !(state === "playing" || state === "paused");
-  resetBtn.disabled  = !(state !== "initial");
-}
-
-// === BUTTON EVENTS ===
-
 playBtn.addEventListener("click", () => {
   isPaused = false;
   loadSloka().then(() => {
@@ -127,8 +120,8 @@ playBtn.addEventListener("click", () => {
     audio.play();
     highlightWord(0);
     updateCoins();
-    updateButtonStates("playing");
     monitorAudio();
+    setControls("playing");
   });
 });
 
@@ -136,34 +129,27 @@ pauseBtn.addEventListener("click", () => {
   isPaused = true;
   audio.pause();
   clearInterval(timer);
-  updateButtonStates("paused");
+  setControls("paused");
 });
 
 resumeBtn.addEventListener("click", () => {
   isPaused = false;
   audio.play();
-  updateButtonStates("playing");
   monitorAudio();
+  setControls("playing");
 });
 
 stopBtn.addEventListener("click", () => {
   isPaused = false;
   audio.pause();
   audio.currentTime = 0;
-  currentWord = 0;
-  highlightWord(-1);
   clearInterval(timer);
-  updateButtonStates("stopped");
-});
-
-resetBtn.addEventListener("click", () => {
-  isPaused = false;
-  audio.pause();
-  audio.currentTime = 0;
   currentWord = 0;
   repetitions = 0;
   highlightWord(-1);
   updateCoins();
-  clearInterval(timer);
-  updateButtonStates("initial");
+  setControls("initial");
 });
+
+// Initial state
+setControls("initial");
