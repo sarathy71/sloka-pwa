@@ -1,7 +1,28 @@
-body {
-  background: #000;
-  color: #fff;
-  font-family: 'Arial', sans-serif;
-  text-align: center;
-  margin-top: 50px;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="manifest" href="manifest.json"/>
+  <title>Sloka Reader</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="app-container">
+    <h1>🕉️ Sloka Reader</h1>
+    <div id="sloka-text" class="sloka-text"></div>
+    <div id="progress-coins" class="coin-track"></div>
+
+    <div class="controls">
+      <button id="play-btn">▶️ Play</button>
+      <button id="pause-btn">⏸ Pause</button>
+      <button id="stop-btn">⏹ Stop</button>
+    </div>
+
+    <audio id="sloka-audio" src="sloka2.wav"></audio>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
