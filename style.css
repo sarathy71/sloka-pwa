@@ -151,10 +151,19 @@ body {
   flex: 1;
 }
 
-.nav-btn {
+.left-nav-btn {
   background: none;
   border: none;
   cursor: pointer;
+  justify-content:left; 
+  padding: 4px;
+}
+
+.right-nav-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  justify-content:right; 
   padding: 4px;
 }
 
