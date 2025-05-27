@@ -202,14 +202,23 @@ function onPlay() {
 
   audio.currentTime = sloka[0].start || 0;
 
-  audio.addEventListener("canplaythrough", () => {
+  // Ensure audio is playable before calling play()
+  if (audio.readyState >= 3) {
     audio.play();
     monitorAudio();
     setControls("playing");
-  }, { once: true });
+  } else {
+    audio.addEventListener("canplaythrough", function handlePlay() {
+      audio.removeEventListener("canplaythrough", handlePlay);
+      audio.play();
+      monitorAudio();
+      setControls("playing");
+    });
 
-  audio.load(); // Ensures fresh playback if switching lessons
+    audio.load(); // Required to re-trigger loading if switching slokas
+  }
 }
+
 
 
 function onPause() {
