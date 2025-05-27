@@ -61,7 +61,7 @@ function setControls(state) {
 function loadLesson(index) {
   const lesson = slokaData[index];
   sloka = lesson.words;
-  audio.src = lesson.audioFile;
+  audio.src = lesson.audio;
 
   const container = document.getElementById("sloka-text");
   container.innerHTML = "";
