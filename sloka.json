@@ -4,7 +4,7 @@
       "name": "Sri Rama Sloka",
       "learnAudio": "sloka2.wav",
       "reciteAudio": "sloka2.wav",
-      "meaningAudio": sloka2.wav",
+      "meaningAudio": "sloka2.wav",
       "meaningText": "Chanting the name of Rama is equivalent to chanting the thousand names of Vishnu.",
       "words": [
         { "start": 0.0, "end": 5.5, "text": "śrī rāma rāma rāmeti" },
