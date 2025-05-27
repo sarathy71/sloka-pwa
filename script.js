@@ -75,7 +75,7 @@ function loadLesson(index) {
     wordsDOM.push(span);
   });
 
-  document.getElementById("lesson-title").textContent = lesson.lessonName;
+  document.getElementById("lesson-title").textContent = lesson.name;
   setControls("initial");
   updateRepetitionTrack();
 }
