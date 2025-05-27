@@ -219,14 +219,18 @@ body {
   box-shadow: 0 0 10px rgba(255, 200, 0, 0.8);
 }
 .control-icon {
-  width: 48px;
-  height: 48px;
+  width: 64px; /* increased size */
+  height: 64px;
   object-fit: contain;
   background-color: transparent;
+  border: none;
+  transition: transform 0.2s ease-in-out;
 }
 
 .control-icon:hover {
-  transform: scale(1.1);
+  transform: scale(1.15);
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.3));
 }
+
 
 
