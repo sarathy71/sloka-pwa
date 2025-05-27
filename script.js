@@ -142,6 +142,18 @@ function loadLesson(index) {
     }
   }
 
+function resetAll() {
+  audio.pause();
+  clearInterval(timer);
+  isPaused = false;
+  isWaitingForStudent = false;
+  currentWord = 0;
+  repetitions = 0;
+  highlightWord(-1);
+  updateRepetitionTrack();
+  setControls("initial");
+}
+
  function finishCycle() {
   repetitions++;
   updateRepetitionTrack();
@@ -166,18 +178,17 @@ function loadLesson(index) {
 }
 
   playBtn.addEventListener("click", () => {
-    isPaused = false;
-    loadSloka().then(() => {
-      currentWord = 0;
-      repetitions = 0;
-      audio.currentTime = sloka[0].start;
-      audio.play();
-      highlightWord(0);
-      updateRepetitionTrack();
-      monitorAudio();
-      setControls("playing");
-    });
-  });
+  isPaused = false;
+  currentWord = 0;
+  repetitions = 0;
+  audio.currentTime = sloka[0].start;
+  audio.play();
+  highlightWord(0);
+  updateRepetitionTrack();
+  monitorAudio();
+  setControls("playing");
+});
+
 
   pauseBtn.addEventListener("click", () => {
     isPaused = true;
