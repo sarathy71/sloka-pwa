@@ -9,7 +9,6 @@ let repetitions = 0;
 const maxReps = 5;
 let timer;
 let wordsDOM = [];
-let isPaused = false;
 let isWaitingForStudent = false;
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -27,8 +26,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Control buttons
   document.getElementById("play-btn").addEventListener("click", onPlay);
-  document.getElementById("pause-btn").addEventListener("click", onPause);
-  document.getElementById("resume-btn").addEventListener("click", onResume);
   document.getElementById("stop-btn").addEventListener("click", onStop);
 
   // Lesson navigation
@@ -60,10 +57,11 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function setControls(state) {
-  document.getElementById("play-btn").disabled = state !== "initial";
-  document.getElementById("pause-btn").disabled = state !== "playing";
-  document.getElementById("resume-btn").disabled = state !== "paused";
-  document.getElementById("stop-btn").disabled = state === "initial";
+  const playBtn = document.getElementById("play-btn");
+  const stopBtn = document.getElementById("stop-btn");
+
+  playBtn.disabled = state !== "initial";
+  stopBtn.disabled = state === "initial";
 }
 
 function highlightModeButton() {
@@ -76,12 +74,10 @@ function loadLesson(index) {
   const lesson = slokaData[index];
   sloka = lesson.words;
 
-  // Set correct audio
   if (currentMode === "learn") audio.src = lesson.learnAudio;
   else if (currentMode === "recite") audio.src = lesson.reciteAudio;
   else if (currentMode === "meaning") audio.src = lesson.meaningAudio;
 
-  // Sloka display
   const container = document.getElementById("sloka-text");
   container.innerHTML = "";
   wordsDOM = [];
@@ -114,7 +110,6 @@ function jumpTo(index) {
   currentWord = index;
   audio.currentTime = sloka[index].start;
   audio.play();
-  isPaused = false;
   setControls("playing");
   highlightWord(index);
   monitorAudio();
@@ -131,7 +126,7 @@ function simulateStudentRepeat(duration, callback) {
 function monitorAudio() {
   clearInterval(timer);
   timer = setInterval(() => {
-    if (isPaused || audio.paused || isWaitingForStudent) return;
+    if (audio.paused || isWaitingForStudent) return;
 
     const t = audio.currentTime;
     if (currentWord < sloka.length) {
@@ -140,7 +135,6 @@ function monitorAudio() {
         audio.pause();
         clearInterval(timer);
         simulateStudentRepeat(word.end - word.start, () => {
-          if (isPaused) return;
           currentWord++;
           if (currentWord < sloka.length) {
             audio.currentTime = sloka[currentWord].start;
@@ -201,7 +195,6 @@ function updateRepetitionTrack() {
 function resetAll() {
   audio.pause();
   clearInterval(timer);
-  isPaused = false;
   isWaitingForStudent = false;
   currentWord = 0;
   repetitions = 0;
@@ -216,7 +209,6 @@ function onPlay() {
     return;
   }
 
-  isPaused = false;
   currentWord = 0;
   repetitions = 0;
   highlightWord(0);
@@ -228,24 +220,7 @@ function onPlay() {
   setControls("playing");
 }
 
-function onPause() {
-  isPaused = true;
-  audio.pause();
-  clearInterval(timer);
-  setControls("paused");
-}
-
-function onResume() {
-  isPaused = false;
-  if (!isWaitingForStudent) {
-    audio.play();
-  }
-  monitorAudio();
-  setControls("playing");
-}
-
 function onStop() {
-  isPaused = false;
   clearInterval(timer);
   audio.pause();
   audio.currentTime = 0;
