@@ -14,17 +14,13 @@ let isWaitingForStudent = false;
 document.addEventListener("DOMContentLoaded", () => {
   audio = document.getElementById("sloka-audio");
 
-  // Initialize buttons
-  const playBtn = document.getElementById("play-btn");
-  const pauseBtn = document.getElementById("pause-btn");
-  const resumeBtn = document.getElementById("resume-btn");
-  const stopBtn = document.getElementById("stop-btn");
+  // Initialize control buttons
+  document.getElementById("play-btn").addEventListener("click", onPlay);
+  document.getElementById("pause-btn").addEventListener("click", onPause);
+  document.getElementById("resume-btn").addEventListener("click", onResume);
+  document.getElementById("stop-btn").addEventListener("click", onStop);
 
-  playBtn.addEventListener("click", onPlay);
-  pauseBtn.addEventListener("click", onPause);
-  resumeBtn.addEventListener("click", onResume);
-  stopBtn.addEventListener("click", onStop);
-
+  // Lesson navigation buttons
   document.getElementById("prev-btn").addEventListener("click", () => {
     if (currentLessonIndex > 0) {
       currentLessonIndex--;
@@ -41,11 +37,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // Load all lessons on startup
   fetch("sloka.json")
     .then(res => res.json())
     .then(data => {
       slokaData = data.lessons;
-      loadLesson(0);
+      loadLesson(0); // Load first lesson
     });
 
   setControls("initial");
@@ -139,11 +136,13 @@ function finishCycle() {
   repetitions++;
   updateRepetitionTrack();
 
-  confetti({
-    particleCount: 100,
-    spread: 60,
-    origin: { y: 0.6 }
-  });
+  if (typeof confetti === "function") {
+    confetti({
+      particleCount: 100,
+      spread: 60,
+      origin: { y: 0.6 }
+    });
+  }
 
   if (repetitions < maxReps) {
     currentWord = 0;
@@ -201,25 +200,10 @@ function onPlay() {
   updateRepetitionTrack();
 
   audio.currentTime = sloka[0].start || 0;
-
-  // Ensure audio is playable before calling play()
-  if (audio.readyState >= 3) {
-    audio.play();
-    monitorAudio();
-    setControls("playing");
-  } else {
-    audio.addEventListener("canplaythrough", function handlePlay() {
-      audio.removeEventListener("canplaythrough", handlePlay);
-      audio.play();
-      monitorAudio();
-      setControls("playing");
-    });
-
-    audio.load(); // Required to re-trigger loading if switching slokas
-  }
+  audio.play();
+  monitorAudio();
+  setControls("playing");
 }
-
-
 
 function onPause() {
   isPaused = true;
