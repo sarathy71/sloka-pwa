@@ -128,17 +128,19 @@ function updateRepetitionTrack() {
 }
 
   playBtn.addEventListener("click", () => {
-    isPaused = false;
-    loadSloka().then(() => {
-      currentWord = 0;
-      repetitions = 0;
-      audio.currentTime = sloka[0].start;
-      audio.play();
-      highlightWord(0);
-      monitorAudio();
-      setControls("playing");
-    });
+  isPaused = false;
+  loadSloka().then(() => {
+    currentWord = 0;
+    repetitions = 0;
+    audio.currentTime = sloka[0].start;
+    audio.play();
+    highlightWord(0);
+    updateRepetitionTracker(); // ✅ Reset tracker at start
+    monitorAudio();
+    setControls("playing");
   });
+});
+
 
   pauseBtn.addEventListener("click", () => {
     isPaused = true;
