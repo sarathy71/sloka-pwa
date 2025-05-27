@@ -111,20 +111,28 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  function finishCycle() {
-    repetitions++;
-    updateRepetitionTrack();
-    if (repetitions < maxReps) {
-      currentWord = 0;
-      audio.currentTime = sloka[0].start;
-      highlightWord(0);
-      audio.play();
-      monitorAudio();
-    } else {
-      console.log("✅ All repetitions done");
-      setControls("initial");
-    }
+ function finishCycle() {
+  repetitions++;
+  updateRepetitionTrack();
+
+  // 🎉 Confetti effect when a repetition completes
+  confetti({
+    particleCount: 100,
+    spread: 70,
+    origin: { y: 0.6 }
+  });
+
+  if (repetitions < maxReps) {
+    currentWord = 0;
+    audio.currentTime = sloka[0].start;
+    highlightWord(0);
+    audio.play();
+    monitorAudio();
+  } else {
+    console.log("✅ All repetitions done");
+    setControls("initial");
   }
+}
 
   playBtn.addEventListener("click", () => {
     isPaused = false;
