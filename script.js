@@ -62,9 +62,12 @@ function loadLesson(index) {
     span.addEventListener("click", () => jumpTo(idx));
     container.appendChild(span);
     wordsDOM.push(span);
+  setControls("initial"); // Re-enable Play after lesson is loaded
   });
 
   document.getElementById("lesson-title").textContent = lesson.lessonName;
+
+
 }
 
 
@@ -178,16 +181,21 @@ function resetAll() {
 }
 
   playBtn.addEventListener("click", () => {
+  if (!sloka.length) {
+    alert("Please wait for the lesson to load.");
+    return;
+  }
   isPaused = false;
   currentWord = 0;
   repetitions = 0;
-  audio.currentTime = sloka[0].start;
+  audio.currentTime = sloka[0].start || 0;
   audio.play();
   highlightWord(0);
   updateRepetitionTrack();
   monitorAudio();
   setControls("playing");
 });
+
 
 
   pauseBtn.addEventListener("click", () => {
