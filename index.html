@@ -6,28 +6,31 @@
   <title>Sloka Reader</title>
   <link rel="stylesheet" href="style.css" />
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-
 </head>
 <body>
   <main class="container">
 
     <h2 id="lesson-title" class="lesson-title"></h2>
 
+    <!-- Sloka Box with Nav Buttons -->
     <div class="sloka-wrapper">
-  <button id="prev-btn" class="nav-btn left" title="Previous Lesson">⬅️</button>
+      <button id="prev-btn" class="nav-btn left" title="Previous Lesson">
+        <img src="images/left.png" alt="Previous" class="nav-icon" />
+      </button>
 
-  <div class="sloka-box">
-    <div id="sloka-text"></div>
-  </div>
+      <div class="sloka-box">
+        <div id="sloka-text"></div>
+      </div>
 
-  <button id="next-btn" class="nav-btn right" title="Next Lesson">➡️</button>
-</div>
+      <button id="next-btn" class="nav-btn right" title="Next Lesson">
+        <img src="images/right.png" alt="Next" class="nav-icon" />
+      </button>
+    </div>
 
-
-    <!-- Repetition Tracker (now right below the sloka box) -->
+    <!-- Repetition Tracker -->
     <div id="repetition-track" class="repetition-track"></div>
 
-    <!-- Controls slightly lower -->
+    <!-- Audio Controls -->
     <div class="controls" style="margin-top: 60px;">
       <button id="play-btn" title="Play">▶️</button>
       <button id="resume-btn" title="Resume">⏵</button>
@@ -35,7 +38,7 @@
       <button id="stop-btn" title="Stop">⏹️</button>
     </div>
 
-    <!-- Audio -->
+    <!-- Audio Element -->
     <audio id="sloka-audio" src="sloka2.wav"></audio>
   </main>
 
