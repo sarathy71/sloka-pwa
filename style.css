@@ -170,7 +170,9 @@ body {
 .nav-icon {
   width: 48px;
   height: 48px;
-  transition: transform 0.2s ease;
+  border-radius: 50%;
+  background-color: transparent; /* or match your body bg */
+  object-fit: contain;
 }
 
 .nav-icon:hover {
