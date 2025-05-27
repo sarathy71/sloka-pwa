@@ -2,6 +2,9 @@ document.addEventListener("DOMContentLoaded", () => {
   let sloka = [];
   let audio = document.getElementById("sloka-audio");
   let currentWord = 0;
+  let slokaData = [];
+  let currentLessonIndex = 0;
+
   let repetitions = 0;
   const maxReps = 5;
   let timer;
@@ -21,21 +24,32 @@ document.addEventListener("DOMContentLoaded", () => {
     stopBtn.disabled = state === "initial";
   }
 
-  async function loadSloka() {
-    const res = await fetch("sloka.json");
-    sloka = await res.json();
-    const container = document.getElementById("sloka-text");
-    container.innerHTML = "";
-    wordsDOM = [];
+  async function loadLessons() {
+  const res = await fetch("sloka.json");
+  slokaData = await res.json();
+  loadLesson(0); // load the first lesson
+}
 
-    sloka.forEach((word, idx) => {
-      const span = document.createElement("span");
-      span.textContent = word.text;
-      span.addEventListener("click", () => jumpTo(idx));
-      container.appendChild(span);
-      wordsDOM.push(span);
-    });
-  }
+function loadLesson(index) {
+  const lesson = slokaData[index];
+  sloka = lesson.words;
+  audio.src = lesson.audioFile;
+
+  const container = document.getElementById("sloka-text");
+  container.innerHTML = "";
+  wordsDOM = [];
+
+  sloka.forEach((word, idx) => {
+    const span = document.createElement("span");
+    span.textContent = word.text;
+    span.addEventListener("click", () => jumpTo(idx));
+    container.appendChild(span);
+    wordsDOM.push(span);
+  });
+
+  document.getElementById("lesson-title").textContent = lesson.lessonName;
+}
+
 
   function highlightWord(index) {
     wordsDOM.forEach((w, i) => {
