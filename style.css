@@ -171,22 +171,29 @@ body {
 .lesson-nav button:active {
   transform: scale(0.95);
 }
+.lesson-nav-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 16px;
+  padding: 0 16px;
+}
+
 .nav-btn {
   background: none;
   border: none;
   cursor: pointer;
-  padding: 0;
 }
 
 .nav-icon {
   width: 48px;
-  height: auto;
+  height: 48px;
+  transition: transform 0.2s;
 }
 
-.sloka-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
+.nav-icon:hover {
+  transform: scale(1.1);
 }
+
 
