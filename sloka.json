@@ -9,6 +9,26 @@
         { "start": 11.0, "end": 15.0, "text": "sahasranāma tat tulyaṃ" },
         { "start": 15.1, "end": 20.0, "text": "rāmanāma varānane" }
       ]
+    },
+    {
+      "name": "Hanuman",
+      "audio": "sloka2.wav",
+      "words": [
+        { "start": 0.0, "end": 5.5, "text": "śrī rāma rāma rāmeti" },
+        { "start": 5.6, "end": 11.0, "text": "rame rāme manorame" },
+        { "start": 11.0, "end": 15.0, "text": "sahasranāma tat tulyaṃ" },
+        { "start": 15.1, "end": 20.0, "text": "rāmanāma varānane" }
+      ]
+    },
+    {
+      "name": "Sri Krishna",
+      "audio": "sloka2.wav",
+      "words": [
+        { "start": 0.0, "end": 5.5, "text": "śrī rāma rāma rāmeti" },
+        { "start": 5.6, "end": 11.0, "text": "rame rāme manorame" },
+        { "start": 11.0, "end": 15.0, "text": "sahasranāma tat tulyaṃ" },
+        { "start": 15.1, "end": 20.0, "text": "rāmanāma varānane" }
+      ]
     }
   ]
 }
