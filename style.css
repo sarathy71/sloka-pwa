@@ -146,7 +146,29 @@ body {
 .lesson-nav {
   display: flex;
   justify-content: center;
-  gap: 12px;
-  margin-bottom: 16px;
+  align-items: center;
+  gap: 40px;
+  margin-bottom: 20px;
+}
+
+.lesson-nav button {
+  font-size: 2rem;
+  padding: 16px 24px;
+  border-radius: 50%;
+  background: linear-gradient(to right, #f5c542, #fca311);
+  border: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+
+.lesson-nav button:hover {
+  transform: scale(1.1);
+  background: linear-gradient(to right, #fca311, #f5c542);
+}
+
+.lesson-nav button:active {
+  transform: scale(0.95);
 }
 
