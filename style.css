@@ -135,65 +135,38 @@ body {
   margin: 0 6px;
 }
 
-.lesson-title {
-  color: white;
-  font-size: 22px;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 12px;
-}
-
-.lesson-nav {
+.lesson-header {
   display: flex;
-  justify-content: center;
   align-items: center;
-  gap: 40px;
-  margin-bottom: 20px;
-}
-
-.lesson-nav button {
-  font-size: 2rem;
-  padding: 16px 24px;
-  border-radius: 50%;
-  background: linear-gradient(to right, #f5c542, #fca311);
-  border: none;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  color: white;
-  cursor: pointer;
-  transition: transform 0.2s ease, background 0.3s ease;
-}
-
-.lesson-nav button:hover {
-  transform: scale(1.1);
-  background: linear-gradient(to right, #fca311, #f5c542);
-}
-
-.lesson-nav button:active {
-  transform: scale(0.95);
-}
-.lesson-nav-top {
-  display: flex;
   justify-content: space-between;
-  align-items: center;
   width: 100%;
-  margin-bottom: 16px;
   padding: 0 16px;
+  margin-bottom: 16px;
+}
+
+.lesson-title {
+  font-size: 1.5em;
+  color: #ffe680; /* kid-friendly soft gold */
+  text-align: center;
+  flex: 1;
 }
 
 .nav-btn {
   background: none;
   border: none;
   cursor: pointer;
+  padding: 4px;
 }
 
 .nav-icon {
   width: 48px;
   height: 48px;
-  transition: transform 0.2s;
+  transition: transform 0.2s ease;
 }
 
 .nav-icon:hover {
   transform: scale(1.1);
 }
+
 
 
