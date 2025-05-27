@@ -3,6 +3,7 @@ let audio;
 let currentWord = 0;
 let slokaData = [];
 let currentLessonIndex = 0;
+let currentMode = "learn"; // "learn", "recite", "meaning"
 
 let repetitions = 0;
 const maxReps = 5;
@@ -14,13 +15,23 @@ let isWaitingForStudent = false;
 document.addEventListener("DOMContentLoaded", () => {
   audio = document.getElementById("sloka-audio");
 
-  // Initialize control buttons
+  // Mode switching
+  document.querySelectorAll(".mode-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      currentMode = btn.dataset.mode;
+      resetAll();
+      loadLesson(currentLessonIndex);
+      highlightModeButton();
+    });
+  });
+
+  // Control buttons
   document.getElementById("play-btn").addEventListener("click", onPlay);
   document.getElementById("pause-btn").addEventListener("click", onPause);
   document.getElementById("resume-btn").addEventListener("click", onResume);
   document.getElementById("stop-btn").addEventListener("click", onStop);
 
-  // Lesson navigation buttons
+  // Lesson navigation
   document.getElementById("prev-btn").addEventListener("click", () => {
     if (currentLessonIndex > 0) {
       currentLessonIndex--;
@@ -37,12 +48,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Load all lessons on startup
+  // Load lesson data
   fetch("sloka.json")
     .then(res => res.json())
     .then(data => {
       slokaData = data.lessons;
-      loadLesson(0); // Load first lesson
+      loadLesson(0);
     });
 
   setControls("initial");
@@ -55,22 +66,37 @@ function setControls(state) {
   document.getElementById("stop-btn").disabled = state === "initial";
 }
 
+function highlightModeButton() {
+  document.querySelectorAll(".mode-btn").forEach(btn => {
+    btn.classList.toggle("active-mode", btn.dataset.mode === currentMode);
+  });
+}
+
 function loadLesson(index) {
   const lesson = slokaData[index];
   sloka = lesson.words;
-  audio.src = lesson.audio;
 
+  // Set correct audio
+  if (currentMode === "learn") audio.src = lesson.learnAudio;
+  else if (currentMode === "recite") audio.src = lesson.reciteAudio;
+  else if (currentMode === "meaning") audio.src = lesson.meaningAudio;
+
+  // Sloka display
   const container = document.getElementById("sloka-text");
   container.innerHTML = "";
   wordsDOM = [];
 
-  sloka.forEach((word, idx) => {
-    const span = document.createElement("span");
-    span.textContent = word.text;
-    span.addEventListener("click", () => jumpTo(idx));
-    container.appendChild(span);
-    wordsDOM.push(span);
-  });
+  if (currentMode === "meaning") {
+    container.textContent = lesson.meaningText;
+  } else {
+    sloka.forEach((word, idx) => {
+      const span = document.createElement("span");
+      span.textContent = word.text;
+      span.addEventListener("click", () => jumpTo(idx));
+      container.appendChild(span);
+      wordsDOM.push(span);
+    });
+  }
 
   document.getElementById("lesson-title").textContent = lesson.name;
   setControls("initial");
@@ -136,13 +162,11 @@ function finishCycle() {
   repetitions++;
   updateRepetitionTrack();
 
-  if (typeof confetti === "function") {
-    confetti({
-      particleCount: 100,
-      spread: 60,
-      origin: { y: 0.6 }
-    });
-  }
+  confetti({
+    particleCount: 100,
+    spread: 60,
+    origin: { y: 0.6 }
+  });
 
   if (repetitions < maxReps) {
     currentWord = 0;
@@ -151,7 +175,6 @@ function finishCycle() {
     audio.play();
     monitorAudio();
   } else {
-    console.log("✅ All repetitions done");
     setControls("initial");
   }
 }
@@ -199,7 +222,7 @@ function onPlay() {
   highlightWord(0);
   updateRepetitionTrack();
 
-  audio.currentTime = sloka[0].start || 0;
+  audio.currentTime = sloka[0]?.start || 0;
   audio.play();
   monitorAudio();
   setControls("playing");
