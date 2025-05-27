@@ -24,13 +24,13 @@ body {
   background: rgba(255, 255, 255, 0.08);
   border: 2px dashed rgba(0, 200, 255, 0.4);
   box-shadow: 0 0 30px rgba(0, 255, 255, 0.25);
-  width: 100%;
+  width: 90%;
   transition: all 0.3s ease-in-out;
 }
 
 #sloka-text {
   text-align: center;
-  font-size: 28px;
+  font-size: 25px;
   line-height: 2.2;
   font-family: 'Comic Sans MS', 'Chalkboard SE', 'Segoe UI', cursive;
 }
