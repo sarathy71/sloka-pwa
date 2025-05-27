@@ -115,33 +115,37 @@ body {
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
 }
-.repetition-track {
+#repetition-track {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 16px;
-  gap: 8px;
+  margin-top: 20px;
 }
 
 .repetition-circle {
-  width: 24px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
-  background-color: #888; /* inactive gray */
+  border: 2px solid gray;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
-  color: white;
+  color: gray;
+  font-size: 16px;
+  font-weight: bold;
 }
 
 .repetition-circle.completed {
-  background-color: #00c853; /* active green */
+  background-color: gold;
+  color: black;
+  border-color: gold;
 }
 
 .repetition-line {
-  width: 40px;
-  height: 4px;
-  background-color: #aaa;
+  height: 2px;
+  width: 20px;
+  background: gray;
+  margin: 0 6px;
 }
+
 
