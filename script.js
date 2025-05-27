@@ -193,16 +193,24 @@ function onPlay() {
     alert("Please wait for the lesson to load.");
     return;
   }
+
   isPaused = false;
   currentWord = 0;
   repetitions = 0;
-  audio.currentTime = sloka[0].start || 0;
-  audio.play();
   highlightWord(0);
   updateRepetitionTrack();
-  monitorAudio();
-  setControls("playing");
+
+  audio.currentTime = sloka[0].start || 0;
+
+  audio.addEventListener("canplaythrough", () => {
+    audio.play();
+    monitorAudio();
+    setControls("playing");
+  }, { once: true });
+
+  audio.load(); // Ensures fresh playback if switching lessons
 }
+
 
 function onPause() {
   isPaused = true;
