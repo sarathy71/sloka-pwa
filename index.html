@@ -8,27 +8,25 @@
 </head>
 <body>
   <main class="container">
+    <!-- Glowing Sloka Box -->
     <div class="sloka-box">
       <div id="sloka-text"></div>
     </div>
 
-  
-    <div class="controls">
+    <!-- Repetition Tracker (now right below the sloka box) -->
+    <div id="repetition-track" class="repetition-track"></div>
+
+    <!-- Controls slightly lower -->
+    <div class="controls" style="margin-top: 30px;">
       <button id="play-btn" title="Play">▶️</button>
       <button id="resume-btn" title="Resume">⏵</button>
       <button id="pause-btn" title="Pause">⏸️</button>
       <button id="stop-btn" title="Stop">⏹️</button>
     </div>
 
-    <div id="repetition-track" class="repetition-track">
-</div>
-  
+    <!-- Audio -->
     <audio id="sloka-audio" src="sloka2.wav"></audio>
   </main>
-
-  
-  <!-- JS will fill in circles -->
-</div>
 
   <script src="script.js"></script>
 </body>
