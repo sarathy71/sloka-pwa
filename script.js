@@ -92,22 +92,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }, 100);
   }
-
-function finishCycle() {
-  repetitions++;
-  updateRepetitionTrack(); // ✅ new call
-  if (repetitions < maxReps) {
-    currentWord = 0;
-    audio.currentTime = sloka[0].start;
-    highlightWord(0);
-    audio.play();
-    monitorAudio();
-  } else {
-    console.log("✅ All repetitions done");
-    setControls("initial");
-  }
-}
-
 function updateRepetitionTrack() {
   const track = document.getElementById("repetition-track");
   track.innerHTML = ""; // Clear previous
@@ -126,6 +110,23 @@ function updateRepetitionTrack() {
     }
   }
 }
+  
+function finishCycle() {
+  repetitions++;
+  updateRepetitionTrack(); // ✅ new call
+  if (repetitions < maxReps) {
+    currentWord = 0;
+    audio.currentTime = sloka[0].start;
+    highlightWord(0);
+    audio.play();
+    monitorAudio();
+  } else {
+    console.log("✅ All repetitions done");
+    setControls("initial");
+  }
+}
+
+
 
   playBtn.addEventListener("click", () => {
   isPaused = false;
