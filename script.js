@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const stopBtn = document.getElementById("stop-btn");
 
   function setControls(state) {
-    // state: 'initial', 'playing', 'paused'
     playBtn.disabled = state !== "initial";
     pauseBtn.disabled = state !== "playing";
     resumeBtn.disabled = state !== "paused";
@@ -92,56 +91,54 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }, 100);
   }
-function updateRepetitionTrack() {
-  const track = document.getElementById("repetition-track");
-  track.innerHTML = ""; // Clear previous
 
-  for (let i = 0; i < maxReps; i++) {
-    const circle = document.createElement("div");
-    circle.classList.add("repetition-circle");
-    if (i < repetitions) circle.classList.add("completed");
-    circle.textContent = i + 1;
-    track.appendChild(circle);
+  function updateRepetitionTrack() {
+    const track = document.getElementById("repetition-track");
+    track.innerHTML = "";
 
-    if (i < maxReps - 1) {
-      const line = document.createElement("div");
-      line.classList.add("repetition-line");
-      track.appendChild(line);
+    for (let i = 0; i < maxReps; i++) {
+      const circle = document.createElement("div");
+      circle.classList.add("repetition-circle");
+      if (i < repetitions) circle.classList.add("completed");
+      circle.textContent = i + 1;
+      track.appendChild(circle);
+
+      if (i < maxReps - 1) {
+        const line = document.createElement("div");
+        line.classList.add("repetition-line");
+        track.appendChild(line);
+      }
     }
   }
-}
-  
-function finishCycle() {
-  repetitions++;
-  updateRepetitionTrack(); // ✅ new call
-  if (repetitions < maxReps) {
-    currentWord = 0;
-    audio.currentTime = sloka[0].start;
-    highlightWord(0);
-    audio.play();
-    monitorAudio();
-  } else {
-    console.log("✅ All repetitions done");
-    setControls("initial");
+
+  function finishCycle() {
+    repetitions++;
+    updateRepetitionTrack();
+    if (repetitions < maxReps) {
+      currentWord = 0;
+      audio.currentTime = sloka[0].start;
+      highlightWord(0);
+      audio.play();
+      monitorAudio();
+    } else {
+      console.log("✅ All repetitions done");
+      setControls("initial");
+    }
   }
-}
-
-
 
   playBtn.addEventListener("click", () => {
-  isPaused = false;
-  loadSloka().then(() => {
-    currentWord = 0;
-    repetitions = 0;
-    audio.currentTime = sloka[0].start;
-    audio.play();
-    highlightWord(0);
-    updateRepetitionTracker(); // ✅ Reset tracker at start
-    monitorAudio();
-    setControls("playing");
+    isPaused = false;
+    loadSloka().then(() => {
+      currentWord = 0;
+      repetitions = 0;
+      audio.currentTime = sloka[0].start;
+      audio.play();
+      highlightWord(0);
+      updateRepetitionTrack();
+      monitorAudio();
+      setControls("playing");
+    });
   });
-});
-
 
   pauseBtn.addEventListener("click", () => {
     isPaused = true;
@@ -167,9 +164,9 @@ function finishCycle() {
     currentWord = 0;
     repetitions = 0;
     highlightWord(-1);
+    updateRepetitionTrack();
     setControls("initial");
   });
 
-  // Initialize controls
   setControls("initial");
 });
