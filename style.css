@@ -171,4 +171,22 @@ body {
 .lesson-nav button:active {
   transform: scale(0.95);
 }
+.nav-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.nav-icon {
+  width: 48px;
+  height: auto;
+}
+
+.sloka-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
 
