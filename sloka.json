@@ -14,11 +14,11 @@
       ]
     },
     {
-      "name": "Sri Rama Sloka 2",
+      "name": "Hanuman Sloka",
       "learnAudio": "learn-sloka1.mp3",
       "reciteAudio": "recite-sloka1.mp3",
       "meaningAudio": "meaning-sloka1.mp3",
-      "meaningText": "Chanting the name of Rama is equivalent to chanting the thousand names of Vishnu.",
+      "meaningText": "Meaning for Hanuman sloka is here",
       "words": [
         { "start": 0.0, "end": 5.5, "text": "śrī rāma rāma rāmeti" },
         { "start": 5.6, "end": 11.0, "text": "rame rāme manorame" },
@@ -27,7 +27,7 @@
       ]
     },
     {
-      "name": "Sri Rama Sloka 3",
+      "name": "Sri Krishna Sloka",
       "learnAudio": "learn-sloka1.mp3",
       "reciteAudio": "recite-sloka1.mp3",
       "meaningAudio": "meaning-sloka1.mp3",
