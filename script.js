@@ -1,3 +1,20 @@
+document.getElementById("prev-btn").addEventListener("click", () => {
+  if (currentLessonIndex > 0) {
+    currentLessonIndex--;
+    resetAll();
+    loadLesson(currentLessonIndex);
+  }
+});
+
+document.getElementById("next-btn").addEventListener("click", () => {
+  if (currentLessonIndex < slokaData.length - 1) {
+    currentLessonIndex++;
+    resetAll();
+    loadLesson(currentLessonIndex);
+  }
+});
+
+
 document.addEventListener("DOMContentLoaded", () => {
   let sloka = [];
   let audio = document.getElementById("sloka-audio");
