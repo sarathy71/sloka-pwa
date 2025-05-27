@@ -1,50 +1,61 @@
-document.getElementById("prev-btn").addEventListener("click", () => {
-  if (currentLessonIndex > 0) {
-    currentLessonIndex--;
-    resetAll();
-    loadLesson(currentLessonIndex);
-  }
-});
+let sloka = [];
+let audio;
+let currentWord = 0;
+let slokaData = [];
+let currentLessonIndex = 0;
 
-document.getElementById("next-btn").addEventListener("click", () => {
-  if (currentLessonIndex < slokaData.length - 1) {
-    currentLessonIndex++;
-    resetAll();
-    loadLesson(currentLessonIndex);
-  }
-});
-
+let repetitions = 0;
+const maxReps = 5;
+let timer;
+let wordsDOM = [];
+let isPaused = false;
+let isWaitingForStudent = false;
 
 document.addEventListener("DOMContentLoaded", () => {
-  let sloka = [];
-  let audio = document.getElementById("sloka-audio");
-  let currentWord = 0;
-  let slokaData = [];
-  let currentLessonIndex = 0;
+  audio = document.getElementById("sloka-audio");
 
-  let repetitions = 0;
-  const maxReps = 5;
-  let timer;
-  let wordsDOM = [];
-  let isPaused = false;
-  let isWaitingForStudent = false;
-
+  // Initialize buttons
   const playBtn = document.getElementById("play-btn");
   const pauseBtn = document.getElementById("pause-btn");
   const resumeBtn = document.getElementById("resume-btn");
   const stopBtn = document.getElementById("stop-btn");
 
-  function setControls(state) {
-    playBtn.disabled = state !== "initial";
-    pauseBtn.disabled = state !== "playing";
-    resumeBtn.disabled = state !== "paused";
-    stopBtn.disabled = state === "initial";
-  }
+  playBtn.addEventListener("click", onPlay);
+  pauseBtn.addEventListener("click", onPause);
+  resumeBtn.addEventListener("click", onResume);
+  stopBtn.addEventListener("click", onStop);
 
-  async function loadLessons() {
-  const res = await fetch("sloka.json");
-  slokaData = await res.json();
-  loadLesson(0); // load the first lesson
+  document.getElementById("prev-btn").addEventListener("click", () => {
+    if (currentLessonIndex > 0) {
+      currentLessonIndex--;
+      resetAll();
+      loadLesson(currentLessonIndex);
+    }
+  });
+
+  document.getElementById("next-btn").addEventListener("click", () => {
+    if (currentLessonIndex < slokaData.length - 1) {
+      currentLessonIndex++;
+      resetAll();
+      loadLesson(currentLessonIndex);
+    }
+  });
+
+  fetch("sloka.json")
+    .then(res => res.json())
+    .then(data => {
+      slokaData = data.lessons;
+      loadLesson(0);
+    });
+
+  setControls("initial");
+});
+
+function setControls(state) {
+  document.getElementById("play-btn").disabled = state !== "initial";
+  document.getElementById("pause-btn").disabled = state !== "playing";
+  document.getElementById("resume-btn").disabled = state !== "paused";
+  document.getElementById("stop-btn").disabled = state === "initial";
 }
 
 function loadLesson(index) {
@@ -62,109 +73,75 @@ function loadLesson(index) {
     span.addEventListener("click", () => jumpTo(idx));
     container.appendChild(span);
     wordsDOM.push(span);
-  setControls("initial"); // Re-enable Play after lesson is loaded
   });
 
   document.getElementById("lesson-title").textContent = lesson.lessonName;
-
-
+  setControls("initial");
+  updateRepetitionTrack();
 }
 
+function highlightWord(index) {
+  wordsDOM.forEach((w, i) =>
+    w.classList.toggle("active", i === index)
+  );
+}
 
-  function highlightWord(index) {
-    wordsDOM.forEach((w, i) => {
-      w.classList.toggle("active", i === index);
-    });
-  }
+function jumpTo(index) {
+  clearInterval(timer);
+  currentWord = index;
+  audio.currentTime = sloka[index].start;
+  audio.play();
+  isPaused = false;
+  setControls("playing");
+  highlightWord(index);
+  monitorAudio();
+}
 
-  function jumpTo(index) {
-    clearInterval(timer);
-    currentWord = index;
-    audio.currentTime = sloka[index].start;
-    audio.play();
-    isPaused = false;
-    setControls("playing");
-    highlightWord(index);
-    monitorAudio();
-  }
+function simulateStudentRepeat(duration, callback) {
+  isWaitingForStudent = true;
+  setTimeout(() => {
+    isWaitingForStudent = false;
+    callback();
+  }, duration * 1000);
+}
 
-  function simulateStudentRepeat(duration, callback) {
-    isWaitingForStudent = true;
-    setTimeout(() => {
-      isWaitingForStudent = false;
-      callback();
-    }, duration * 1000);
-  }
+function monitorAudio() {
+  clearInterval(timer);
+  timer = setInterval(() => {
+    if (isPaused || audio.paused || isWaitingForStudent) return;
 
-  function monitorAudio() {
-    clearInterval(timer);
-    timer = setInterval(() => {
-      if (isPaused || audio.paused || isWaitingForStudent) return;
-
-      const t = audio.currentTime;
-      if (currentWord < sloka.length) {
-        const word = sloka[currentWord];
-        if (t >= word.end) {
-          audio.pause();
-          clearInterval(timer);
-          simulateStudentRepeat(word.end - word.start, () => {
-            if (isPaused) return;
-            currentWord++;
-            if (currentWord < sloka.length) {
-              audio.currentTime = sloka[currentWord].start;
-              audio.play();
-              highlightWord(currentWord);
-              monitorAudio();
-            } else {
-              finishCycle();
-            }
-          });
-        } else {
-          highlightWord(currentWord);
-        }
-      }
-    }, 100);
-  }
-
-  function updateRepetitionTrack() {
-    const track = document.getElementById("repetition-track");
-    track.innerHTML = "";
-
-    for (let i = 0; i < maxReps; i++) {
-      const circle = document.createElement("div");
-      circle.classList.add("repetition-circle");
-      if (i < repetitions) circle.classList.add("completed");
-      circle.textContent = i + 1;
-      track.appendChild(circle);
-
-      if (i < maxReps - 1) {
-        const line = document.createElement("div");
-        line.classList.add("repetition-line");
-        track.appendChild(line);
+    const t = audio.currentTime;
+    if (currentWord < sloka.length) {
+      const word = sloka[currentWord];
+      if (t >= word.end) {
+        audio.pause();
+        clearInterval(timer);
+        simulateStudentRepeat(word.end - word.start, () => {
+          if (isPaused) return;
+          currentWord++;
+          if (currentWord < sloka.length) {
+            audio.currentTime = sloka[currentWord].start;
+            audio.play();
+            highlightWord(currentWord);
+            monitorAudio();
+          } else {
+            finishCycle();
+          }
+        });
+      } else {
+        highlightWord(currentWord);
       }
     }
-  }
-
-function resetAll() {
-  audio.pause();
-  clearInterval(timer);
-  isPaused = false;
-  isWaitingForStudent = false;
-  currentWord = 0;
-  repetitions = 0;
-  highlightWord(-1);
-  updateRepetitionTrack();
-  setControls("initial");
+  }, 100);
 }
 
- function finishCycle() {
+function finishCycle() {
   repetitions++;
   updateRepetitionTrack();
 
-  // 🎉 Confetti effect when a repetition completes
   confetti({
     particleCount: 100,
-    spread: 70,
+    spread: 60,
     origin: { y: 0.6 }
   });
 
@@ -180,7 +157,38 @@ function resetAll() {
   }
 }
 
-  playBtn.addEventListener("click", () => {
+function updateRepetitionTrack() {
+  const track = document.getElementById("repetition-track");
+  track.innerHTML = "";
+
+  for (let i = 0; i < maxReps; i++) {
+    const circle = document.createElement("div");
+    circle.classList.add("repetition-circle");
+    if (i < repetitions) circle.classList.add("completed");
+    circle.textContent = i + 1;
+    track.appendChild(circle);
+
+    if (i < maxReps - 1) {
+      const line = document.createElement("div");
+      line.classList.add("repetition-line");
+      track.appendChild(line);
+    }
+  }
+}
+
+function resetAll() {
+  audio.pause();
+  clearInterval(timer);
+  isPaused = false;
+  isWaitingForStudent = false;
+  currentWord = 0;
+  repetitions = 0;
+  highlightWord(-1);
+  updateRepetitionTrack();
+  setControls("initial");
+}
+
+function onPlay() {
   if (!sloka.length) {
     alert("Please wait for the lesson to load.");
     return;
@@ -194,37 +202,32 @@ function resetAll() {
   updateRepetitionTrack();
   monitorAudio();
   setControls("playing");
-});
+}
 
+function onPause() {
+  isPaused = true;
+  audio.pause();
+  clearInterval(timer);
+  setControls("paused");
+}
 
+function onResume() {
+  isPaused = false;
+  if (!isWaitingForStudent) {
+    audio.play();
+  }
+  monitorAudio();
+  setControls("playing");
+}
 
-  pauseBtn.addEventListener("click", () => {
-    isPaused = true;
-    audio.pause();
-    clearInterval(timer);
-    setControls("paused");
-  });
-
-  resumeBtn.addEventListener("click", () => {
-    isPaused = false;
-    if (!isWaitingForStudent) {
-      audio.play();
-    }
-    monitorAudio();
-    setControls("playing");
-  });
-
-  stopBtn.addEventListener("click", () => {
-    isPaused = false;
-    clearInterval(timer);
-    audio.pause();
-    audio.currentTime = 0;
-    currentWord = 0;
-    repetitions = 0;
-    highlightWord(-1);
-    updateRepetitionTrack();
-    setControls("initial");
-  });
-
+function onStop() {
+  isPaused = false;
+  clearInterval(timer);
+  audio.pause();
+  audio.currentTime = 0;
+  currentWord = 0;
+  repetitions = 0;
+  highlightWord(-1);
+  updateRepetitionTrack();
   setControls("initial");
-});
+}
