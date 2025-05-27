@@ -193,15 +193,39 @@ body {
   padding: 12px 20px;
   border: none;
   border-radius: 16px;
-  background-color: #ffe680;
   color: #333;
   cursor: pointer;
   transition: transform 0.2s ease, background-color 0.3s ease;
   display: flex;
   align-items: center;
   gap: 10px;
-  box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
+
+/* Unique kid-friendly colors */
+.mode-learn {
+  background-color: #ffec99; /* Soft yellow */
+}
+
+.mode-recite {
+  background-color: #a0e7e5; /* Light turquoise */
+}
+
+.mode-meaning {
+  background-color: #cdb4db; /* Lavender purple */
+}
+
+/* Optional: On hover effect */
+.mode-btn:hover {
+  transform: scale(1.05);
+}
+
+/* Active tab style */
+.active-mode {
+  outline: 3px solid white;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
+}
+
 
 .mode-btn img {
   width: 28px;
