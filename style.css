@@ -248,4 +248,11 @@ body {
 }
 
 
-
+.control-icon {
+  width: 64px; /* increased size */
+  height: 64px;
+  object-fit: contain;
+  background-color: transparent;
+  border: none;
+  transition: transform 0.2s ease-in-out;
+}
