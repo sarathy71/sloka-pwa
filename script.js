@@ -10,6 +10,8 @@ const maxReps = 5;
 let timer;
 let wordsDOM = [];
 let isWaitingForStudent = false;
+let isStopped = false; // 🔴 NEW: track if Stop was clicked
+
 
 document.addEventListener("DOMContentLoaded", () => {
   audio = document.getElementById("sloka-audio");
@@ -125,15 +127,17 @@ function jumpTo(index) {
 function simulateStudentRepeat(duration, callback) {
   isWaitingForStudent = true;
   setTimeout(() => {
+    if (isStopped) return; // 🔴 Don't resume if stopped
     isWaitingForStudent = false;
     callback();
   }, duration * 1000);
 }
 
+
 function monitorAudio() {
   clearInterval(timer);
   timer = setInterval(() => {
-    if (audio.paused || isWaitingForStudent) return;
+    if (isStopped || audio.paused || isWaitingForStudent) return;
 
     const t = audio.currentTime;
     if (currentWord < sloka.length) {
@@ -142,6 +146,7 @@ function monitorAudio() {
         audio.pause();
         clearInterval(timer);
         simulateStudentRepeat(word.end - word.start, () => {
+          if (isStopped) return;
           currentWord++;
           if (currentWord < sloka.length) {
             audio.currentTime = sloka[currentWord].start;
@@ -158,6 +163,7 @@ function monitorAudio() {
     }
   }, 100);
 }
+
 
 function finishCycle() {
   repetitions++;
@@ -203,12 +209,14 @@ function resetAll() {
   audio.pause();
   clearInterval(timer);
   isWaitingForStudent = false;
+  isStopped = true; // 🔴 STOP flag set
   currentWord = 0;
   repetitions = 0;
   highlightWord(-1);
   updateRepetitionTrack();
   setControls("initial");
 }
+
 
 function monitorReciteAudio() {
   clearInterval(timer);
@@ -232,9 +240,10 @@ function monitorReciteAudio() {
 function onPlay() {
   if (!sloka.length || currentMode === "meaning") return;
 
+  isStopped = false; // 🔄 Allow audio to run
   currentWord = 0;
   repetitions = 0;
-  highlightWord(-1); // No highlight for recite or meaning
+  highlightWord(-1);
   updateRepetitionTrack();
 
   audio.currentTime = sloka[0]?.start || 0;
@@ -244,11 +253,12 @@ function onPlay() {
   } else {
     highlightWord(0);
     audio.play();
-    monitorAudio(); // normal logic for learn mode
+    monitorAudio();
   }
 
   setControls("playing");
 }
+
 
 
 function onStop() {
