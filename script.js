@@ -4,6 +4,7 @@ let currentWord = 0;
 let slokaData = [];
 let currentLessonIndex = 0;
 let currentMode = "learn"; // "learn", "recite", "meaning"
+let studentTimeout = null; // NEW: to store the pause timeout
 
 let repetitions = 0;
 const maxReps = 5;
@@ -126,12 +127,13 @@ function jumpTo(index) {
 
 function simulateStudentRepeat(duration, callback) {
   isWaitingForStudent = true;
-  setTimeout(() => {
-    if (isStopped) return; // 🔴 Don't resume if stopped
+  studentTimeout = setTimeout(() => {
+    if (isStopped) return;
     isWaitingForStudent = false;
     callback();
   }, duration * 1000);
 }
+
 
 
 function monitorAudio() {
@@ -212,6 +214,11 @@ function resetAll() {
   isStopped = true; // 🔴 STOP flag set
   currentWord = 0;
   repetitions = 0;
+  if (studentTimeout) {
+  clearTimeout(studentTimeout); // 🔥 Cancel pause delay
+  studentTimeout = null;
+}
+
   highlightWord(-1);
   updateRepetitionTrack();
   setControls("initial");
@@ -263,6 +270,11 @@ function onPlay() {
 
 function onStop() {
   clearInterval(timer);
+  if (studentTimeout) {
+  clearTimeout(studentTimeout); // 🔥 Cancel pause delay
+  studentTimeout = null;
+}
+
   audio.pause();
   audio.currentTime = 0;
   currentWord = 0;
