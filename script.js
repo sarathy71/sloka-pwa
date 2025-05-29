@@ -172,7 +172,7 @@ function finishCycle() {
   updateRepetitionTrack();
 
   confetti({
-    particleCount: 100,
+    particleCount: 150,
     spread: 60,
     origin: { y: 0.6 }
   });
@@ -257,6 +257,7 @@ function onPlay() {
 
   if (currentMode === "recite") {
     audio.play();
+    setControls("initial"); // Re-enable Play, disable Stop(); // Start recite monitoring!
   } else {
     highlightWord(0);
     audio.play();
