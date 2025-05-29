@@ -60,8 +60,13 @@ function setControls(state) {
   const playBtn = document.getElementById("play-btn");
   const stopBtn = document.getElementById("stop-btn");
 
-  playBtn.disabled = state !== "initial";
-  stopBtn.disabled = state === "initial";
+  if (currentMode === "meaning") {
+    playBtn.disabled = true;
+    stopBtn.disabled = true;
+  } else {
+    playBtn.disabled = state !== "initial";
+    stopBtn.disabled = state === "initial";
+  }
 }
 
 function highlightModeButton() {
@@ -86,12 +91,14 @@ function loadLesson(index) {
     container.textContent = lesson.meaningText;
   } else {
     sloka.forEach((word, idx) => {
-      const span = document.createElement("span");
-      span.textContent = word.text;
-      span.addEventListener("click", () => jumpTo(idx));
-      container.appendChild(span);
-      wordsDOM.push(span);
-    });
+  const span = document.createElement("span");
+  span.textContent = word.text;
+  if (currentMode !== "recite") {
+    span.addEventListener("click", () => jumpTo(idx));
+  }
+  container.appendChild(span);
+  wordsDOM.push(span);
+});
   }
 
   document.getElementById("lesson-title").textContent = lesson.name;
@@ -203,20 +210,44 @@ function resetAll() {
   setControls("initial");
 }
 
+function monitorReciteAudio() {
+  clearInterval(timer);
+  timer = setInterval(() => {
+    const t = audio.currentTime;
+    if (currentWord < sloka.length) {
+      const word = sloka[currentWord];
+      if (t >= word.end) {
+        currentWord++;
+        if (currentWord < sloka.length) {
+          audio.currentTime = sloka[currentWord].start;
+        } else {
+          clearInterval(timer);
+          finishCycle();
+        }
+      }
+    }
+  }, 100);
+}
+
 function onPlay() {
-  if (!sloka.length) {
-    alert("Please wait for the lesson to load.");
-    return;
-  }
+  if (!sloka.length || currentMode === "meaning") return;
 
   currentWord = 0;
   repetitions = 0;
-  highlightWord(0);
+  highlightWord(-1); // No highlight at start
   updateRepetitionTrack();
 
   audio.currentTime = sloka[0]?.start || 0;
-  audio.play();
-  monitorAudio();
+
+  if (currentMode === "recite") {
+    audio.play();
+    monitorReciteAudio(); // custom monitor without pauses
+  } else {
+    highlightWord(0);
+    audio.play();
+    monitorAudio();
+  }
+
   setControls("playing");
 }
 
