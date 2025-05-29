@@ -18,35 +18,32 @@ body {
 }
 
 .sloka-box {
-  padding: 24px;
-  margin-bottom: 12px;
-  border-radius: 24px;
+  padding: 16px; /* reduced from 24px */
+  margin-bottom: 8px; /* tighter spacing below */
+  border-radius: 20px;
   background: rgba(255, 255, 255, 0.08);
   border: 2px dashed rgba(0, 200, 255, 0.4);
-  box-shadow: 0 0 30px rgba(0, 255, 255, 0.25);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.2); /* slightly lighter shadow */
   width: 90%;
   transition: all 0.3s ease-in-out;
+  max-height: 140px; /* or try 120px or 160px */
+  overflow-y: auto;
 }
 
 #sloka-text {
   text-align: center;
-  font-size: 16px;
-  line-height: 2.2;
+  font-size: 14px; /* reduced from 16px */
+  line-height: 1.8; /* tighter line spacing */
   font-family: 'Comic Sans MS', 'Chalkboard SE', 'Segoe UI', cursive;
 }
 
 #sloka-text span {
-  display: inline-block;
-  margin: 6px;
-  padding: 10px 16px;
-  border-radius: 16px;
-  font-size: 1.3em;
-  font-weight: bold;
-  color: white;
-  background-color: rgba(255, 255, 255, 0.08);
-  transition: all 0.2s ease;
-  cursor: pointer;
+  margin: 4px;         /* tighter horizontal spacing */
+  padding: 6px 12px;   /* reduced vertical padding */
+  border-radius: 12px;
+  font-size: 1.1em;    /* slightly smaller text */
 }
+
 
 #sloka-text span:hover {
   background-color: rgba(255, 255, 255, 0.2);
