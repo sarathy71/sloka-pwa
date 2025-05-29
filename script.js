@@ -234,22 +234,22 @@ function onPlay() {
 
   currentWord = 0;
   repetitions = 0;
-  highlightWord(-1); // No highlight at start
+  highlightWord(-1); // No highlight for recite or meaning
   updateRepetitionTrack();
 
   audio.currentTime = sloka[0]?.start || 0;
 
   if (currentMode === "recite") {
     audio.play();
-    monitorReciteAudio(); // custom monitor without pauses
   } else {
     highlightWord(0);
     audio.play();
-    monitorAudio();
+    monitorAudio(); // normal logic for learn mode
   }
 
   setControls("playing");
 }
+
 
 function onStop() {
   clearInterval(timer);
