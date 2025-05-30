@@ -10,30 +10,36 @@
 <body>
   <main class="container">
 
-    <!-- Lesson Navigation + Title -->
-    <div class="lesson-header">
-      <button id="prev-btn" class="left-nav-btn" title="Previous Lesson">
-        <img src="images/left.png" alt="Previous" class="nav-icon" />
-      </button>
+    <!-- Top Bar with Language Selector -->
+    <div class="top-bar" style="display: flex; justify-content: space-between; align-items: center;">
+      <div class="lesson-header">
+        <button id="prev-btn" class="left-nav-btn" title="Previous Lesson">
+          <img src="images/left.png" alt="Previous" class="nav-icon" />
+        </button>
 
-      <h2 id="lesson-title" class="lesson-title">Loading...</h2>
-      <button id="next-btn" class="right-nav-btn" title="Next Lesson">
-        <img src="images/right.png" alt="Next" class="nav-icon" />
-      </button>
+        <h2 id="lesson-title" class="lesson-title">Loading...</h2>
+
+        <button id="next-btn" class="right-nav-btn" title="Next Lesson">
+          <img src="images/right.png" alt="Next" class="nav-icon" />
+        </button>
+      </div>
+
+      <!-- Language Selector -->
+      <div class="lang-selector" style="margin-left: auto;">
+        <label for="language-select" style="margin-right: 8px;">🌐</label>
+        <select id="language-select">
+          <option value="english" selected>English</option>
+          <option value="telugu">Telugu</option>
+        </select>
+      </div>
     </div>
 
+    <!-- Mode Tabs -->
     <div class="mode-tabs">
-  <button class="mode-btn mode-learn active-mode" data-mode="learn">
-    📖 Learn
-  </button>
-  <button class="mode-btn mode-recite" data-mode="recite">
-    🗣️ Recite
-  </button>
-  <button class="mode-btn mode-meaning" data-mode="meaning">
-    💡 Meaning
-  </button>
-</div>
-
+      <button class="mode-btn mode-learn active-mode" data-mode="learn">📖 Learn</button>
+      <button class="mode-btn mode-recite" data-mode="recite">🗣️ Recite</button>
+      <button class="mode-btn mode-meaning" data-mode="meaning">💡 Meaning</button>
+    </div>
 
     <!-- Sloka Text Box -->
     <div class="sloka-box">
@@ -45,13 +51,13 @@
 
     <!-- Audio Controls -->
     <div class="controls" style="margin-top: 40px;">
-  <button id="play-btn" title="Play">
-    <img src="images/play.png" alt="Play" class="control-icon" />
-  </button>
-  <button id="stop-btn" title="Stop">
-    <img src="images/stop.png" alt="Stop" class="control-icon" />
-  </button>
-</div>
+      <button id="play-btn" title="Play">
+        <img src="images/play.png" alt="Play" class="control-icon" />
+      </button>
+      <button id="stop-btn" title="Stop">
+        <img src="images/stop.png" alt="Stop" class="control-icon" />
+      </button>
+    </div>
 
     <!-- Audio Element -->
     <audio id="sloka-audio"></audio>
