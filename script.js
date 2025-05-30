@@ -5,6 +5,7 @@ let slokaData = [];
 let currentLessonIndex = 0;
 let currentMode = "learn"; // "learn", "recite", "meaning"
 let studentTimeout = null; // NEW: to store the pause timeout
+let currentLang = "english"; // NEW: default language
 
 let repetitions = 0;
 const maxReps = 5;
@@ -59,6 +60,14 @@ document.addEventListener("DOMContentLoaded", () => {
   setControls("initial");
 });
 
+// Language selector
+document.getElementById("language-select").addEventListener("change", (e) => {
+  currentLang = e.target.value;
+  resetAll();
+  loadLesson(currentLessonIndex);
+});
+
+
 function setControls(state) {
   const playBtn = document.getElementById("play-btn");
   const stopBtn = document.getElementById("stop-btn");
@@ -82,6 +91,7 @@ function loadLesson(index) {
   const lesson = slokaData[index];
   sloka = lesson.words;
 
+  // Set audio
   if (currentMode === "learn") audio.src = lesson.learnAudio;
   else if (currentMode === "recite") audio.src = lesson.reciteAudio;
   else if (currentMode === "meaning") audio.src = lesson.meaningAudio;
@@ -90,24 +100,31 @@ function loadLesson(index) {
   container.innerHTML = "";
   wordsDOM = [];
 
+  // 🟡 Language fallback logic
+  const displayName = currentLang === "english" ? lesson.name : lesson?.lang?.[currentLang]?.name || lesson.name;
+  const displayMeaning = currentLang === "english" ? lesson.meaningText : lesson?.lang?.[currentLang]?.meaningText || lesson.meaningText;
+  const displayWords = currentLang === "english" ? lesson.words.map(w => w.text) : (lesson?.lang?.[currentLang]?.words || []).map(w => w.text);
+
+  // Set meaning or words
   if (currentMode === "meaning") {
-    container.textContent = lesson.meaningText;
+    container.textContent = displayMeaning;
   } else {
     sloka.forEach((word, idx) => {
-  const span = document.createElement("span");
-  span.textContent = word.text;
-  if (currentMode !== "recite") {
-    span.addEventListener("click", () => jumpTo(idx));
-  }
-  container.appendChild(span);
-  wordsDOM.push(span);
-});
+      const span = document.createElement("span");
+      span.textContent = displayWords[idx] || word.text;
+      if (currentMode !== "recite") {
+        span.addEventListener("click", () => jumpTo(idx));
+      }
+      container.appendChild(span);
+      wordsDOM.push(span);
+    });
   }
 
-  document.getElementById("lesson-title").textContent = lesson.name;
+  document.getElementById("lesson-title").textContent = displayName;
   setControls("initial");
   updateRepetitionTrack();
 }
+
 
 function highlightWord(index) {
   wordsDOM.forEach((w, i) =>
