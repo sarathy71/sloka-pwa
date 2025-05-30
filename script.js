@@ -257,7 +257,6 @@ function onPlay() {
 
   if (currentMode === "recite") {
     audio.play();
-    resetAll(); // Re-enable Play, disable Stop(); // Start recite monitoring!
   } else {
     highlightWord(0);
     audio.play();
