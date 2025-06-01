@@ -24,14 +24,11 @@ body {
 }
 
 .sloka-box {
-  padding: 24px;
-  margin-bottom: 12px;
-  margin-top: 0 !important;
-  border-radius: 24px;
-  border: 2px dashed rgba(0, 200, 255, 0.4);
-  box-shadow: 0 0 30px rgba(0, 255, 255, 0.25);
-  width: 90%;
-  transition: all 0.3s ease-in-out;
+  width: 100%;
+  margin-top: 12px;
+  border: 2px dashed rgba(255, 255, 255, 0.6);
+  padding: 16px;
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 #sloka-text {
@@ -178,8 +175,8 @@ body {
 }
 
 .nav-icon {
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   background-color: transparent; /* or match your body bg */
   object-fit: contain;
@@ -199,18 +196,11 @@ body {
 }
 
 .mode-btn {
-  font-size: 20px;
-  font-weight: bold;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 16px;
-  color: #333;
-  cursor: pointer;
-  transition: transform 0.2s ease, background-color 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  flex: 1;
+  font-size: 16px;
+  padding: 10px;
+  text-align: center;
+  white-space: nowrap;
 }
 
 /* Unique kid-friendly colors */
