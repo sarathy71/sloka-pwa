@@ -268,17 +268,6 @@ body {
   background: transparent !important;
 }
 
-#bg-video {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  object-fit: cover;
-  z-index: -1;
-  background: black;
-  opacity: 1; /* Full opacity if you want pure video background */
-}
 
 
 
