@@ -257,3 +257,14 @@ body {
   border: none;
   transition: transform 0.2s ease-in-out;
 }
+#bg-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-width: 100vw;
+  min-height: 100vh;
+  z-index: -1;
+  object-fit: cover;
+  opacity: 0.25; /* Adjust for readability */
+}
+
