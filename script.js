@@ -307,7 +307,7 @@ document.getElementById("lesson-select").addEventListener("change", (e) => {
   // Map lesson key to JSON path
   const fileMap = {
     "suprabhatham": "lessons/suprabhatham.json",
-    "baala-mukunda": "lessons/baala-mukunda.json",
+    "baala-mukunda": "lessons/baalamukundaashtakam.json",
     "guruvaashtakam": "lessons/guruvaashtakam.json"
   };
 
