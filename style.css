@@ -270,14 +270,21 @@ body {
   border: none;
   transition: transform 0.2s ease-in-out;
 }
-.sloka-box,
-.lesson-header,
-.mode-tabs,
-.controls,
-.repetition-track {
-  background: transparent !important;
+
+
+.lesson-selector select {
+  background-color: #fff8e1;
+  color: #994d00;
+  border: 1px solid #cc7000;
+  font-family: inherit;
+  font-weight: bold;
+  outline: none;
+  transition: border 0.2s ease;
 }
 
+.lesson-selector select:focus {
+  border: 2px solid #ffa500;
+}
 
 
 
