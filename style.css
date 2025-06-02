@@ -202,33 +202,41 @@ body {
   padding: 10px;
   text-align: center;
   white-space: nowrap;
+  color: #fff;
+  border-radius: 12px;
+  background-color: #994d00; /* earthy orange-brown */
+  border: 1px solid #ffcc80;
+  transition: all 0.2s ease;
 }
 
-/* Unique kid-friendly colors */
+
 .mode-learn {
-  background-color: #ffec99; /* Soft yellow */
+  background-color: #cc7000; /* Deep saffron orange */
 }
 
 .mode-recite {
-  background-color: #a0e7e5; /* Light turquoise */
+  background-color: #994d00; /* Earthy maroon-orange */
 }
 
 .mode-meaning {
-  background-color: #cdb4db; /* Lavender purple */
+  background-color: #b36b00; /* Rustic turmeric shade */
 }
+
 
 /* Optional: On hover effect */
 .mode-btn:hover {
   transform: scale(1.05);
+  background-color: #e67300; /* Bright warm orange */
 }
 
 /* Active tab style */
 .active-mode {
-  outline: 2px solid #ff9900; /* Saffron/Deep Orange */
-  background-color: #ffd000;
+  background-color: #ffd700; /* Bright gold */
   color: #000;
-  box-shadow: 0 0 8px rgba(255, 153, 0, 0.6); /* softer orange glow */
+  outline: 2px solid #ff9900;
+  box-shadow: 0 0 8px rgba(255, 153, 0, 0.6);
 }
+
 
 
 .mode-btn img {
