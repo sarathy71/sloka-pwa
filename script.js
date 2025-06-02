@@ -300,3 +300,31 @@ function onStop() {
   updateRepetitionTrack();
   setControls("initial");
 }
+
+document.getElementById("lesson-select").addEventListener("change", (e) => {
+  const selectedLesson = e.target.value;
+
+  // Map lesson key to JSON path
+  const fileMap = {
+    "suprabhatham": "lessons/suprabhatham.json",
+    "baala-mukunda": "lessons/baala-mukunda.json",
+    "guruvaashtakam": "lessons/guruvaashtakam.json"
+  };
+
+  const filePath = fileMap[selectedLesson];
+
+  if (filePath) {
+    fetch(filePath)
+      .then(res => res.json())
+      .then(data => {
+        slokaData = data.lessons;
+        currentLessonIndex = 0;
+        resetAll();
+        loadLesson(0);
+      })
+      .catch(err => {
+        console.error("Error loading lesson:", err);
+      });
+  }
+});
+
