@@ -3,17 +3,16 @@ let audio;
 let currentWord = 0;
 let slokaData = [];
 let currentLessonIndex = 0;
-let currentMode = "learn"; // "learn", "recite", "meaning"
-let studentTimeout = null; // NEW: to store the pause timeout
-let currentLang = "english"; // NEW: default language
+let currentMode = "learn";
+let studentTimeout = null;
+let currentLang = "english";
 
 let repetitions = 0;
 const maxReps = 5;
 let timer;
 let wordsDOM = [];
 let isWaitingForStudent = false;
-let isStopped = false; // 🔴 NEW: track if Stop was clicked
-
+let isStopped = false;
 
 document.addEventListener("DOMContentLoaded", () => {
   audio = document.getElementById("sloka-audio");
@@ -49,8 +48,42 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Load lesson data
-  fetch("sloka.json")
+  // Language selector
+  document.getElementById("language-select").addEventListener("change", (e) => {
+    currentLang = e.target.value;
+    resetAll();
+    loadLesson(currentLessonIndex);
+  });
+
+  // Lesson selector dropdown
+  document.getElementById("lesson-select").addEventListener("change", (e) => {
+    const selectedLesson = e.target.value;
+
+    const fileMap = {
+      "suprabhatham": "lessons/suprabhatham.json",
+      "baala-mukunda": "lessons/baalamukundaashtakam.json",
+      "guruvaashtakam": "lessons/guruvaashtakam.json"
+    };
+
+    const filePath = fileMap[selectedLesson];
+
+    if (filePath) {
+      fetch(filePath)
+        .then(res => res.json())
+        .then(data => {
+          slokaData = data.lessons;
+          currentLessonIndex = 0;
+          resetAll();
+          loadLesson(0);
+        })
+        .catch(err => {
+          console.error("Error loading lesson:", err);
+        });
+    }
+  });
+
+  // Default load
+  fetch("lessons/suprabhatham.json")
     .then(res => res.json())
     .then(data => {
       slokaData = data.lessons;
@@ -59,14 +92,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   setControls("initial");
 });
-
-// Language selector
-document.getElementById("language-select").addEventListener("change", (e) => {
-  currentLang = e.target.value;
-  resetAll();
-  loadLesson(currentLessonIndex);
-});
-
 
 function setControls(state) {
   const playBtn = document.getElementById("play-btn");
@@ -91,7 +116,6 @@ function loadLesson(index) {
   const lesson = slokaData[index];
   sloka = lesson.words;
 
-  // Set audio
   if (currentMode === "learn") audio.src = lesson.learnAudio;
   else if (currentMode === "recite") audio.src = lesson.reciteAudio;
   else if (currentMode === "meaning") audio.src = lesson.meaningAudio;
@@ -100,12 +124,10 @@ function loadLesson(index) {
   container.innerHTML = "";
   wordsDOM = [];
 
-  // 🟡 Language fallback logic
   const displayName = currentLang === "english" ? lesson.name : lesson?.lang?.[currentLang]?.name || lesson.name;
   const displayMeaning = currentLang === "english" ? lesson.meaningText : lesson?.lang?.[currentLang]?.meaningText || lesson.meaningText;
   const displayWords = currentLang === "english" ? lesson.words.map(w => w.text) : (lesson?.lang?.[currentLang]?.words || []).map(w => w.text);
 
-  // Set meaning or words
   if (currentMode === "meaning") {
     container.textContent = displayMeaning;
   } else {
@@ -124,7 +146,6 @@ function loadLesson(index) {
   setControls("initial");
   updateRepetitionTrack();
 }
-
 
 function highlightWord(index) {
   wordsDOM.forEach((w, i) =>
@@ -150,8 +171,6 @@ function simulateStudentRepeat(duration, callback) {
     callback();
   }, duration * 1000);
 }
-
-
 
 function monitorAudio() {
   clearInterval(timer);
@@ -182,7 +201,6 @@ function monitorAudio() {
     }
   }, 100);
 }
-
 
 function finishCycle() {
   repetitions++;
@@ -228,19 +246,19 @@ function resetAll() {
   audio.pause();
   clearInterval(timer);
   isWaitingForStudent = false;
-  isStopped = true; // 🔴 STOP flag set
+  isStopped = true;
   currentWord = 0;
   repetitions = 0;
+
   if (studentTimeout) {
-  clearTimeout(studentTimeout); // 🔥 Cancel pause delay
-  studentTimeout = null;
-}
+    clearTimeout(studentTimeout);
+    studentTimeout = null;
+  }
 
   highlightWord(-1);
   updateRepetitionTrack();
   setControls("initial");
 }
-
 
 function monitorReciteAudio() {
   clearInterval(timer);
@@ -264,7 +282,7 @@ function monitorReciteAudio() {
 function onPlay() {
   if (!sloka.length || currentMode === "meaning") return;
 
-  isStopped = false; // 🔄 Allow audio to run
+  isStopped = false;
   currentWord = 0;
   repetitions = 0;
   highlightWord(-1);
@@ -283,14 +301,12 @@ function onPlay() {
   setControls("playing");
 }
 
-
-
 function onStop() {
   clearInterval(timer);
   if (studentTimeout) {
-  clearTimeout(studentTimeout); // 🔥 Cancel pause delay
-  studentTimeout = null;
-}
+    clearTimeout(studentTimeout);
+    studentTimeout = null;
+  }
 
   audio.pause();
   audio.currentTime = 0;
@@ -300,31 +316,3 @@ function onStop() {
   updateRepetitionTrack();
   setControls("initial");
 }
-
-document.getElementById("lesson-select").addEventListener("change", (e) => {
-  const selectedLesson = e.target.value;
-
-  // Map lesson key to JSON path
-  const fileMap = {
-    "suprabhatham": "lessons/suprabhatham.json",
-    "baala-mukunda": "lessons/baalamukundaashtakam.json",
-    "guruvaashtakam": "lessons/guruvaashtakam.json"
-  };
-
-  const filePath = fileMap[selectedLesson];
-
-  if (filePath) {
-    fetch(filePath)
-      .then(res => res.json())
-      .then(data => {
-        slokaData = data.lessons;
-        currentLessonIndex = 0;
-        resetAll();
-        loadLesson(0);
-      })
-      .catch(err => {
-        console.error("Error loading lesson:", err);
-      });
-  }
-});
-
