@@ -6,7 +6,7 @@ body {
   background: url("images/bg.png") no-repeat center center fixed;
   display: flex;
   justify-content: center;
-  background: transparent !important;
+  
 }
 
 .container {
