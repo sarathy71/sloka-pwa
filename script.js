@@ -48,12 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Language selector
-  document.getElementById("language-select").addEventListener("change", (e) => {
-    currentLang = e.target.value;
-    resetAll();
-    loadLesson(currentLessonIndex);
-  });
+  
 
   // Lesson selector dropdown
   document.getElementById("lesson-select").addEventListener("change", (e) => {
