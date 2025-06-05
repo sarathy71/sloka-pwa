@@ -1,0 +1,19 @@
+{
+  "lessons": [
+    {
+  "name": "Namah Kodanda Hastaya",
+  "learnAudio": "audios/suprabhatham/Namah-kodanda-hasthaaya-learn.m4a",
+  "reciteAudio": "audios/suprabhatham/Namah-kodanda-hasthaaya-recite.m4a",
+  "meaningAudio": "audios/suprabhatham/Namah-kodanda-hasthaaya-meaning.m4a",
+  "meaningText": "Salutations to the one who bears the mighty bow Kodanda, who wielded the Sarayu that made truce, who destroyed all the demons, and to Rama, the one who brings solace.",
+  "words": [
+    { "start": 0.0, "end": 4.46, "text": "Namah kodanda-hastaya" },
+    { "start": 7.53, "end": 11.38, "text": "sandhi-krutha sharayacha" },
+    { "start": 14.47, "end": 16.82, "text": "khandithaakhila" },
+    { "start": 18.98, "end": 21.18, "text": "daityaya" },
+    { "start": 23.08, "end": 25.83, "text": "ramaayapan" },
+    { "start": 27.58, "end": 29.77, "text": "nivarine" }
+  ]
+}
+  ]
+}
