@@ -21,13 +21,13 @@
   "reciteAudio": "audios/slokashri2/Raamaya-raamabhadraaya-recite.m4a",
   "meaningText": "Salutations to Lord Rama, the auspicious one, the radiant Rama Chandra, the all-wise one, the Lord of the Raghu lineage, the protector, and the beloved husband of Sita. I bow to Him again and again.",
   "words": [
-    { "start": 0.0, "end": 4.46, "text": "rāmāya" },
-    { "start": 7.53, "end": 11.38, "text": "rāma-badrāya" },
-    { "start": 14.47, "end": 16.82, "text": "rāma-chandrāya" },
-    { "start": 18.98, "end": 21.18, "text": "vēdhasē" },
-    { "start": 23.08, "end": 25.83, "text": "raghunāthāya" },
-    { "start": 27.58, "end": 29.77, "text": "nāthāya" },
-    { "start": 27.58, "end": 29.77, "text": "sītāyāḥ pathayē namaha:" }
+    { "start": 0.5, "end": 2.55, "text": "rāmāya" },
+    { "start": 4.25, "end": 06.60, "text": "rāma-badrāya" },
+    { "start": 08.30, "end": 10.6, "text": "rāma-chandrāya" },
+    { "start": 12.0, "end": 13.9, "text": "vēdhasē" },
+    { "start": 15.4, "end": 17.4, "text": "raghunāthāya" },
+    { "start": 18.5, "end": 20.1, "text": "nāthāya" },
+    { "start": 21.6, "end": 26.2, "text": "sītāyāḥ pathayē namaha:" }
   ]
 }
   ]
