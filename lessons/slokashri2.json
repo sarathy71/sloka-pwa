@@ -2,9 +2,9 @@
   "lessons": [
     {
   "name": "Namah Kodanda Hastaya",
-  "learnAudio": "audios/suprabhatham/Namah-kodanda-hasthaaya-learn.m4a",
-  "reciteAudio": "audios/suprabhatham/Namah-kodanda-hasthaaya-recite.m4a",
-  "meaningAudio": "audios/suprabhatham/Namah-kodanda-hasthaaya-meaning.m4a",
+  "learnAudio": "audios/slokashri2/Namah-kodanda-hasthaaya-learn.m4a",
+  "reciteAudio": "audios/slokashri2/Namah-kodanda-hasthaaya-recite.m4a",
+  "meaningAudio": "audios/slokashri2/Namah-kodanda-hasthaaya-meaning.m4a",
   "meaningText": "Salutations to the one who bears the mighty bow Kodanda, who wielded the Sarayu that made truce, who destroyed all the demons, and to Rama, the one who brings solace.",
   "words": [
     { "start": 0.0, "end": 4.46, "text": "Namah kodanda-hastaya" },
