@@ -55,6 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const selectedLesson = e.target.value;
 
     const fileMap = {
+      "slokashri2": "lessons/slokashri2.json",
       "suprabhatham": "lessons/suprabhatham.json",
       "baala-mukunda": "lessons/baalamukundaashtakam.json",
       "guruvaashtakam": "lessons/guruvaashtakam.json"
