@@ -3,15 +3,15 @@
     {
   "name": "Kara-aravindena (Verse 1)",
   "learnAudio": "audios/bmukunda/Karaaravindena-learn.m4a",
-  "reciteAudio": "audios/bmukunda/Karaaravindena-learn.m4a",
-  "meaningText": "Chanting the name of Rama is equivalent to chanting the thousand names of Vishnu.",
+  "reciteAudio": "audios/bmukunda/Karaaravindena-recite.m4a",
+  "meaningText": "I meditate upon the divine child Mukunda (Krishna), who lies gracefully on a banyan leaf, placing his lotus-like foot with his lotus-like hand onto his lotus-like face.",
   "words": [
     { "start": 0.00, "end": 3.20, "text": "Kara-aravindena" },
     { "start": 5.85, "end": 8.20, "text": "pada-aravindam" },
     { "start": 10.80, "end": 13.35, "text": "mukha-aravinde" },
     { "start": 15.80, "end": 18.70, "text": "viniveshayantham" },
     { "start": 21.20, "end": 23.70, "text": "vatasya pathrasya" },
-    { "start": 26.50, "end": 29.03, "text": "phute shayaanam"},
+    { "start": 25.50, "end": 29.03, "text": "phute shayaanam"},
     { "start": 31.75, "end": 34.30, "text": "baalam mukundam"},
     { "start": 37.01, "end": 39.99, "text": "manasa smaraami"}
   ]
