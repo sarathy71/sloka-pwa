@@ -294,8 +294,10 @@ body {
 }
 
 .meaning-tooltip {
-  position: fixed; /* Use fixed so it doesn't take layout space */
-  z-index: 10;
+  position: absolute;
+  bottom: -1.5em;
+  left: 50%;
+  transform: translateX(-50%);
   background: #ffe9b3;
   padding: 4px 8px;
   border-radius: 6px;
@@ -304,13 +306,18 @@ body {
   color: #000;
   opacity: 0;
   pointer-events: none;
+  visibility: hidden;
   transition: opacity 0.2s ease-in-out;
-  transform: translate(-50%, 0);
+  z-index: 2;
+  max-width: 240px;
+  text-align: center;
 }
+
 
 
 .word-wrapper.active .meaning-tooltip {
   opacity: 1;
+  visibility: visible;
 }
 
 
