@@ -128,20 +128,21 @@
   "meaningAudio": "audios/suprabhatham/Sri-padmanabha-verse22-meaning.m4a",
   "meaningText": "O Lord Venkatesha! Today, wise Vedic scholars are happily standing with golden pots filled with sweet-smelling holy water made from cardamom, clove, and sandalwood from the heavenly river. Good morning to you, O Lord of the Vēṅkaṭāchala hill!",
   "words": [
-    { "start": 0.0, "end": 2.5, "text": "ēlālavaṅga" },
-    { "start": 4.5, "end": 6.2, "text": "ghanasāra" },
-    { "start": 8.0, "end": 10.8, "text": "sugandhi tīrtham" },
-    { "start": 13.4, "end": 15.0, "text": "divyam" },    
-    { "start": 16.08, "end": 17.9, "text": "viyatsariti" },
-    { "start": 19.7, "end": 23.5, "text": "hēmaghaṭēṣu pūrṇam" },
-    { "start": 25.9, "end": 27.8, "text": "dhṛtvā-adya" },
-    { "start": 29.5, "end": 30.7, "text": "vaidika" },
-    { "start": 31.9, "end": 36.2, "text": "śikhāmaṇayaḥ prahṛṣṭāḥ" },
-    { "start": 39.4, "end": 40.8, "text": "tiṣṭhanti" },
-    { "start": 41.8, "end": 47.13, "text": "vēṅkaṭapatē tava suprabhātam" }
+    { "start": 0.0, "end": 2.5, "text": "ēlālavaṅga", "meaning": "cardamom, clove"},
+    { "start": 4.5, "end": 6.2, "text": "ghanasāra", "meaning": "and sandalwood" },
+    { "start": 8.0, "end": 10.8, "text": "sugandhi tīrtham", "meaning": "fragrant sacred water" },
+    { "start": 13.4, "end": 15.0, "text": "divyam", "meaning": "divine" },    
+    { "start": 16.08, "end": 17.9, "text": "viyatsariti", "meaning": "from the holy river (i.e., Ganga)" },
+    { "start": 19.7, "end": 23.5, "text": "hēmaghaṭēṣu pūrṇam", "meaning": "in golden pots, filled" },
+    { "start": 25.9, "end": 27.8, "text": "dhṛtvā-adya", "meaning": "holding today" },
+    { "start": 29.5, "end": 30.7, "text": "vaidika", "meaning": "Vedic scholars" },
+    { "start": 31.9, "end": 36.2, "text": "śikhāmaṇayaḥ prahṛṣṭāḥ", "meaning": "the foremost, delighted" },
+    { "start": 39.4, "end": 40.8, "text": "tiṣṭhanti", "meaning": "are standing" },
+    { "start": 41.8, "end": 47.13, "text": "vēṅkaṭapatē tava suprabhātam", "meaning": "O Lord of Vēṅkaṭa, may this morning be auspicious to you" }
     
   ]
 }
+
 
 
 
