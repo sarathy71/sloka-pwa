@@ -146,7 +146,7 @@ function loadLesson(index) {
   const lesson = slokaData[index];
   sloka = lesson.words;
 
-  // Set correct audio
+  // Set the right audio file
   if (currentMode === "learn") audio.src = lesson.learnAudio;
   else if (currentMode === "recite") audio.src = lesson.reciteAudio;
   else if (currentMode === "meaning") audio.src = lesson.meaningAudio;
@@ -164,7 +164,7 @@ function loadLesson(index) {
   } else {
     sloka.forEach((word, idx) => {
       const wrapper = document.createElement("span");
-      wrapper.classList.add("word-wrapper");
+      wrapper.className = "word-wrapper";
 
       const wordSpan = document.createElement("span");
       wordSpan.textContent = displayWords[idx] || word.text;
@@ -175,17 +175,13 @@ function loadLesson(index) {
 
       wrapper.appendChild(wordSpan);
 
-      // Attach meaning tooltip if available
-      const meaningText =
-        word.meaning ||
-        lesson?.lang?.[currentLang]?.words?.[idx]?.meaning ||
-        "";
-
+      // Optional tooltip, only if meaning is defined
+      const meaningText = word.meaning || lesson?.lang?.[currentLang]?.words?.[idx]?.meaning;
       if (meaningText) {
-        const meaningSpan = document.createElement("div");
-        meaningSpan.classList.add("meaning-tooltip");
-        meaningSpan.textContent = meaningText;
-        wrapper.appendChild(meaningSpan);
+        const tooltip = document.createElement("div");
+        tooltip.className = "meaning-tooltip";
+        tooltip.textContent = meaningText;
+        wrapper.appendChild(tooltip);
       }
 
       container.appendChild(wrapper);
@@ -197,6 +193,7 @@ function loadLesson(index) {
   setControls("initial");
   updateRepetitionTrack();
 }
+
 
 
 function highlightWord(index) {
