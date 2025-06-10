@@ -287,6 +287,31 @@ body {
 }
 
 
+.word-wrapper {
+  position: relative;
+  display: inline-block;
+  margin: 0 4px;
+}
+
+.meaning-tooltip {
+  position: absolute;
+  bottom: -1.5em;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ffe9b3;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  white-space: nowrap;
+  color: #000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.word-wrapper.active .meaning-tooltip {
+  opacity: 1;
+}
 
 
 
