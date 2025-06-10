@@ -197,10 +197,31 @@ function loadLesson(index) {
 
 
 function highlightWord(index) {
-  wordsDOM.forEach((w, i) =>
-    w.classList.toggle("active", i === index)
-  );
+  wordsDOM.forEach((w, i) => {
+    w.classList.toggle("active", i === index);
+  });
+
+  // Remove any previous tooltip
+  const existingTooltip = document.getElementById("floating-tooltip");
+  if (existingTooltip) existingTooltip.remove();
+
+  // If meaning exists, create and position floating tooltip
+  if (index >= 0 && sloka[index]?.meaning) {
+    const wordElement = wordsDOM[index];
+    const tooltip = document.createElement("div");
+    tooltip.id = "floating-tooltip";
+    tooltip.className = "meaning-tooltip";
+    tooltip.textContent = sloka[index].meaning;
+
+    document.body.appendChild(tooltip);
+
+    const rect = wordElement.getBoundingClientRect();
+    tooltip.style.left = `${rect.left + rect.width / 2}px`;
+    tooltip.style.top = `${rect.bottom + 4}px`;
+    tooltip.style.opacity = 1;
+  }
 }
+
 
 function jumpTo(index) {
   clearInterval(timer);
