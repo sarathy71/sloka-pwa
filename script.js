@@ -328,6 +328,9 @@ function resetAll() {
   highlightWord(-1);
   updateRepetitionTrack();
   setControls("initial");
+  const oldTip = document.getElementById("floating-tooltip");
+    if (oldTip) oldTip.remove();
+
 }
 
 function monitorReciteAudio() {
