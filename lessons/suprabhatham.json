@@ -99,7 +99,29 @@
     { "start": 38.9, "end": 44.66, "text": "śrī vēṅkaṭāchalapatē tava suprabhātam" }
     
   ]
+},
+    {
+  "name": "Minakruthe (Verse 24)",
+  "learnAudio": "audios/suprabhatham/Minaakrithe-learn.m4a",
+  "reciteAudio": "audios/suprabhatham/Minaakrithe-recite.m4a",
+  "meaningAudio": "audios/suprabhatham/Sri-padmanabha-verse22-meaning.m4a",
+  "meaningText": "O Lord of Vēṅkaṭāchala! You took many forms like a fish, tortoise, boar, and the fierce lion-man Narasimha. You came as Paraśurāma with an axe, as Rāma full of penance, and as Rāma who is Balarāma. You came as Krishna, the beloved of the Yadu family, and will come again as Kalki. May your morning be blessed and beautiful!",
+  "words": [
+    { "start": 0.0, "end": 2.3, "text": "mīna-akṛtē" },
+    { "start": 3.9, "end": 5.5, "text": "kamaṭha-kōla" },
+    { "start": 7.4, "end": 10.1, "text": "nṛsiṃha-varṇin" },
+    { "start": 12.2, "end": 13.7, "text": "svāmin" },    
+    { "start": 15.0, "end": 16.4, "text": "paraś-vatha" },
+    { "start": 17.7, "end": 19.2, "text": "tapōdhana" },
+    { "start": 20.3, "end": 22.8, "text": "rāmachandra" },
+    { "start": 24.2, "end": 26.9, "text": "śēṣāṃśa-rāma" },
+    { "start": 28.5, "end": 30.1, "text": "yadunandana" },
+    { "start": 31.4, "end": 34.0, "text": "kalki-rūpa" },
+    { "start": 38.9, "end": 42.03, "text": "śrī vēṅkaṭāchalapatē tava suprabhātam" }
+    
+  ]
 }
+
 
 
 
