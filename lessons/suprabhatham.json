@@ -83,13 +83,8 @@
   "learnAudio": "audios/suprabhatham/Kandarpa-darpa-learn.m4a",
   "reciteAudio": "audios/suprabhatham/Kandarpa-darpa-recite.m4a",
   "meaningAudio": "audios/suprabhatham/Sri-padmanabha-verse22-meaning.m4a",
-  "meaningText": "O Lord Venkatesha!
-You are more handsome than even the God of Love.
-Your divine form is full of beauty and goodness.
-You lovingly look at Goddess Lakshmi,
-And you are filled with pure and kind qualities.
-Everyone praises your divine name.
-Good morning to you, O Lord of the sacred Vēṅkaṭāchala hill!",
+  "meaningText": "O Lord Venkatesha! You are more handsome than even the God of Love. Your divine form is full of beauty and goodness. You lovingly look at Goddess Lakshmi, And you are filled with pure and kind qualities. Everyone praises your divine name. Good morning to you, O Lord of the sacred Vēṅkaṭāchala hill!
+",
   "words": [
     { "start": 1.06, "end": 2.53, "text": "kandarpa" },
     { "start": 3.5, "end": 4.9, "text": "darpa hara" },
