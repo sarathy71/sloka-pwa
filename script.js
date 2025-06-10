@@ -108,10 +108,45 @@ function highlightModeButton() {
   });
 }
 
+// function loadLesson(index) {
+//   const lesson = slokaData[index];
+//   sloka = lesson.words;
+
+//   if (currentMode === "learn") audio.src = lesson.learnAudio;
+//   else if (currentMode === "recite") audio.src = lesson.reciteAudio;
+//   else if (currentMode === "meaning") audio.src = lesson.meaningAudio;
+
+//   const container = document.getElementById("sloka-text");
+//   container.innerHTML = "";
+//   wordsDOM = [];
+
+//   const displayName = currentLang === "english" ? lesson.name : lesson?.lang?.[currentLang]?.name || lesson.name;
+//   const displayMeaning = currentLang === "english" ? lesson.meaningText : lesson?.lang?.[currentLang]?.meaningText || lesson.meaningText;
+//   const displayWords = currentLang === "english" ? lesson.words.map(w => w.text) : (lesson?.lang?.[currentLang]?.words || []).map(w => w.text);
+
+//   if (currentMode === "meaning") {
+//     container.textContent = displayMeaning;
+//   } else {
+//     sloka.forEach((word, idx) => {
+//       const span = document.createElement("span");
+//       span.textContent = displayWords[idx] || word.text;
+//       if (currentMode !== "recite") {
+//         span.addEventListener("click", () => jumpTo(idx));
+//       }
+//       container.appendChild(span);
+//       wordsDOM.push(span);
+//     });
+//   }
+
+//   document.getElementById("lesson-title").textContent = displayName;
+//   setControls("initial");
+//   updateRepetitionTrack();
+// }
 function loadLesson(index) {
   const lesson = slokaData[index];
   sloka = lesson.words;
 
+  // Set correct audio
   if (currentMode === "learn") audio.src = lesson.learnAudio;
   else if (currentMode === "recite") audio.src = lesson.reciteAudio;
   else if (currentMode === "meaning") audio.src = lesson.meaningAudio;
@@ -128,13 +163,33 @@ function loadLesson(index) {
     container.textContent = displayMeaning;
   } else {
     sloka.forEach((word, idx) => {
-      const span = document.createElement("span");
-      span.textContent = displayWords[idx] || word.text;
+      const wrapper = document.createElement("span");
+      wrapper.classList.add("word-wrapper");
+
+      const wordSpan = document.createElement("span");
+      wordSpan.textContent = displayWords[idx] || word.text;
+
       if (currentMode !== "recite") {
-        span.addEventListener("click", () => jumpTo(idx));
+        wordSpan.addEventListener("click", () => jumpTo(idx));
       }
-      container.appendChild(span);
-      wordsDOM.push(span);
+
+      wrapper.appendChild(wordSpan);
+
+      // Attach meaning tooltip if available
+      const meaningText =
+        word.meaning ||
+        lesson?.lang?.[currentLang]?.words?.[idx]?.meaning ||
+        "";
+
+      if (meaningText) {
+        const meaningSpan = document.createElement("div");
+        meaningSpan.classList.add("meaning-tooltip");
+        meaningSpan.textContent = meaningText;
+        wrapper.appendChild(meaningSpan);
+      }
+
+      container.appendChild(wrapper);
+      wordsDOM.push(wrapper);
     });
   }
 
@@ -142,6 +197,7 @@ function loadLesson(index) {
   setControls("initial");
   updateRepetitionTrack();
 }
+
 
 function highlightWord(index) {
   wordsDOM.forEach((w, i) =>
