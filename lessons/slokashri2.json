@@ -29,6 +29,23 @@
     { "start": 18.5, "end": 20.1, "text": "nāthāya" },
     { "start": 21.6, "end": 26.2, "text": "sītāyāḥ pathayē namaha:" }
   ]
+},
+    {
+  "name": "Agratah",
+  "learnAudio": "audios/slokashri2/Agratah-prushtatah-learn.m4a",
+  "reciteAudio": "audios/suprabhatham/Agrathah-prushtatha.m4a",
+  "meaningText": "O Lord Venkatesha! Today, wise Vedic scholars are happily standing with golden pots filled with sweet-smelling holy water made from cardamom, clove, and sandalwood from the heavenly river. Good morning to you, O Lord of the Vēṅkaṭāchala hill!",
+  "words": [
+    { "start": 1.05, "end": 2.18, "text": "agrataḥ", "meaning": "In front"},
+    { "start": 3.95, "end": 6.26, "text": "pṛṣṭhataḥ-cha-iva", "meaning": "behind, and also" },
+    { "start": 8.5, "end": 10.6, "text": "pārśvataḥ cha", "meaning": "on the sides, as well" },
+    { "start": 12.7, "end": 14.9, "text": "mahabalau", "meaning": "the two might ones" },    
+    { "start": 17.4, "end": 19.8, "text": "Ākarṇa-pūrṇa", "meaning": "fully up to the ears" },
+    { "start": 22.06, "end": 24.01, "text": "dhanvanau", "meaning": "with bows drawn" },
+    { "start": 25.9, "end": 27.8, "text": "rakṣetām", "meaning": "may(they) protect" },
+    { "start": 29.3, "end": 32.9, "text": "Rāma-Lakṣmaṇau", "meaning": "Rama & Lakshmana" }
+  ]
 }
+
   ]
 }
